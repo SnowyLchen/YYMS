@@ -7,20 +7,20 @@
 >
   <!--配置访问页-->
   <welcome-file-list>
-    <welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <!--获取根目录-->
+    <!--获取根目录-->
   <!--<context-param>-->
-  <!--<param-name>webAppRootKey</param-name>-->
-  <!--<param-value>mxsw.root</param-value>-->
+    <!--<param-name>webAppRootKey</param-name>-->
+    <!--<param-value>mxsw.root</param-value>-->
   <!--</context-param>-->
   <!--<listener>-->
-  <!--<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>-->
+    <!--<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>-->
   <!--</listener>-->
   <!--指定Spring配置文件-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:springmvc.xml</param-value>
+    <param-value>classpath:spring/applicationContext.xml</param-value>
   </context-param>
   <!--字符编码以及全HTTP请求支持过滤器添加-->
   <filter>
@@ -55,7 +55,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:springmvc.xml</param-value>
+      <param-value>classpath:spring/applicationContext.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
