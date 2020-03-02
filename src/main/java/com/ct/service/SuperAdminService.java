@@ -17,7 +17,7 @@ public interface SuperAdminService {
     //超级管理员登陆
     SuperAdmin login(SuperAdmin superAdmin);
 
-    
+
     //通过id查询
     SuperAdmin queryAdminById(String id);
 }

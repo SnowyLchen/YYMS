@@ -17,7 +17,7 @@ public interface SuperAdminMapper {
     /**
      * 通过id查询超级管理员
      */
-    SuperAdmin queryAdminById(@Param("super_id") String super_id);
+    SuperAdmin queryAdminById(@Param("superId") String superId);
 
     /**
      * 通过姓名查询超级管理员

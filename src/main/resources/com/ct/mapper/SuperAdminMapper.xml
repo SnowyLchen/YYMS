@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ct.mapper.SuperAdminMapper">
-  <resultMap id="SuperAdminMap" type="com.mx.pojo.SuperAdmin">
+  <resultMap id="SuperAdminMap" type="com.ct.pojo.SuperAdmin">
     <result column="super_id" jdbcType="INTEGER" property="superId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="super_name" jdbcType="VARCHAR" property="superName" />
+    <result column="super_password" jdbcType="VARCHAR" property="superPassword" />
+    <association property="superRole" javaType="com.ct.pojo.Authority">
+      <id column="a_id" property="aId" jdbcType="INTEGER"/>
+      <result column="a_role" property="aRole" jdbcType="VARCHAR"/>
+    </association>
   </resultMap>
-  <select id="queryAdminById"  resultType="SuperAdmin">
-    select * from superadmin where super_id=#{super_id}
+  <select id="queryAdminById"  resultType="com.ct.pojo.SuperAdmin">
+    select * from SuperAdmin where super_id=#{superId}
   </select>
-  <select id="queryAdminByName" resultType="SuperAdmin">
-    select * from superadmin
+  <select id="queryAdminByName" resultType="com.ct.pojo.SuperAdmin">
+    select * from SuperAdmin
     <where>
       <trim>
-          <if test="name != null">
-            and  name=#{name}
+          <if test="superName != null">
+            and  superName=#{superName}
           </if>
 
       </trim>
@@ -22,24 +26,24 @@
 
   </select>
   <select id="queryAdminCount" resultType="java.lang.Integer">
-    select count(*) from superadmin
+    select count(*) from SuperAdmin
   </select>
-  <insert id="addSuperAdmin" parameterType="com.mx.pojo.SuperAdmin">
-    insert into superadmin
+  <insert id="addSuperAdmin" parameterType="com.ct.pojo.SuperAdmin">
+    insert into SuperAdmin
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
+      <if test="superName != null">
+        super_name,
       </if>
       <if test="password != null">
-        password,
+        super_password,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name},
+      <if test="superName != null">
+        #{superName},
       </if>
-      <if test="password != null">
-        #{password},
+      <if test="superPassword != null">
+        #{superPassword},
       </if>
     </trim>
   </insert>
