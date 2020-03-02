@@ -15,7 +15,7 @@ public class SuperAdminInterCeptor implements HandlerInterceptor {
 
 
     /** 定义不需要拦截的请求 */
-    private static final String[] IGNORE_URI = {"/login","/addSuperAdmin","login.jsp"};
+    private static final String[] IGNORE_URI = {"/Loginfo","/addSuperAdmin","Loginfo.jsp"};
 
 
     /**
@@ -51,7 +51,7 @@ public class SuperAdminInterCeptor implements HandlerInterceptor {
                     request.removeAttribute("msg");
                 }
                 request.setAttribute("msg","请先登录");
-                request.getRequestDispatcher("/WEB-INF/jsp/backManage/login/login.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/jsp/backManage/Loginfo/Loginfo.jsp").forward(request,response);
                 return SUPERADMIN;
             }
         }

@@ -2,6 +2,8 @@ package com.ct.service;
 
 import com.ct.pojo.SuperAdmin;
 
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * 超级管理员
@@ -12,10 +14,10 @@ public interface SuperAdminService {
     int querySuperAdminCount();
 
     //添加superAdmin
-    void addSuperAdmin(SuperAdmin superAdmin);
+    boolean addSuperAdmin(SuperAdmin superAdmin);
 
     //超级管理员登陆
-    SuperAdmin login(SuperAdmin superAdmin);
+    SuperAdmin login(SuperAdmin superAdmin, HttpSession session);
 
 
     //通过id查询

@@ -47,17 +47,18 @@
     <!--使用AOP对事务管理的范围进行织入明确几个点1.对哪些地方需要进行事务管理execution书写,明确边界,2使用什么策略去管理
   策略我们使用了tx:advice全部书写与其中,在我们的aop的advice当中只需要去引用这个事务管理器者的建议即可-->
     <!--拦截器的配置-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!--/*只能拦截/name一层，而/**可以拦截多层-->
-            <!--/**/*可以拦截任意包任意层-->
-            <mvc:mapping path="/SuperAdmin/**/*"/>
-            <mvc:mapping path="/Forward/**/*"/>
-            <mvc:exclude-mapping path="/SuperAdmin/ToSuperadmin"/>
-            <bean class="com.ct.interCeptors.SuperAdminInterCeptor">
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--&lt;!&ndash;/*只能拦截/name一层，而/**可以拦截多层&ndash;&gt;-->
+            <!--&lt;!&ndash;/**/*可以拦截任意包任意层&ndash;&gt;-->
+            <!--<mvc:mapping path="/SuperAdmin/**/*"/>-->
+            <!--<mvc:mapping path="/Forward/**/*"/>-->
+            <!--&lt;!&ndash;<mvc:exclude-mapping path="/SuperAdmin/ToSuperadmin"/>&ndash;&gt;-->
+            <!--<mvc:exclude-mapping path="/SuperAdmin/addsuperadmin"/>-->
+            <!--<bean class="com.ct.interCeptors.SuperAdminInterCeptor">-->
+            <!--</bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>
 

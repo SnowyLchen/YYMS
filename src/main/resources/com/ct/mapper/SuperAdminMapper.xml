@@ -5,7 +5,8 @@
     <result column="super_id" jdbcType="INTEGER" property="superId" />
     <result column="super_name" jdbcType="VARCHAR" property="superName" />
     <result column="super_password" jdbcType="VARCHAR" property="superPassword" />
-    <association property="superRole" javaType="com.ct.pojo.Authority">
+    <result column="super_pic" jdbcType="VARCHAR" property="superPic" />
+    <association property="superRole" column="a_id" javaType="com.ct.pojo.Authority">
       <id column="a_id" property="aId" jdbcType="INTEGER"/>
       <result column="a_role" property="aRole" jdbcType="VARCHAR"/>
     </association>
@@ -13,14 +14,13 @@
   <select id="queryAdminById"  resultType="com.ct.pojo.SuperAdmin">
     select * from SuperAdmin where super_id=#{superId}
   </select>
-  <select id="queryAdminByName" resultType="com.ct.pojo.SuperAdmin">
+  <select id="queryAdminByName" resultMap="SuperAdminMap">
     select * from SuperAdmin
     <where>
       <trim>
           <if test="superName != null">
-            and  superName=#{superName}
+            and  super_name=#{superName}
           </if>
-
       </trim>
     </where>
 
@@ -34,8 +34,14 @@
       <if test="superName != null">
         super_name,
       </if>
-      <if test="password != null">
+      <if test="superPassword != null">
         super_password,
+      </if>
+       <if test="superPic != null">
+        super_pic,
+      </if>
+       <if test="superRole.aRole != null">
+        a_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -44,6 +50,12 @@
       </if>
       <if test="superPassword != null">
         #{superPassword},
+      </if>
+      <if test="superPic != null">
+        #{superPic},
+      </if>
+      <if test="superRole.aRole != null">
+        #{superRole.aId},
       </if>
     </trim>
   </insert>

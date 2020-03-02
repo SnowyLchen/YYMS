@@ -1,9 +1,11 @@
 package com.ct.mapper;
 
 import com.ct.pojo.Authority;
+import org.apache.ibatis.annotations.Param;
 
 public interface AuthorityMapper {
-    int insert(Authority record);
+    //通过角色名查询id
+    int queryIdByRole(@Param("role") String role);
 
-    int insertSelective(Authority record);
+    String queryRoleById(@Param("a_id") Integer aId);
 }

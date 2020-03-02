@@ -5,27 +5,10 @@
     <result column="a_id" jdbcType="INTEGER" property="aId" />
     <result column="a_role" jdbcType="VARCHAR" property="aRole" />
   </resultMap>
-  <insert id="insert" parameterType="com.ct.pojo.Authority">
-    insert into authority (a_id, a_role)
-    values (#{aId,jdbcType=INTEGER}, #{aRole,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ct.pojo.Authority">
-    insert into authority
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="aId != null">
-        a_id,
-      </if>
-      <if test="aRole != null">
-        a_role,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="aId != null">
-        #{aId,jdbcType=INTEGER},
-      </if>
-      <if test="aRole != null">
-        #{aRole,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+ <select id="queryIdByRole" resultType="Integer">
+   select a_id from  authority where a_role=#{role}
+ </select>
+ <select id="queryRoleById" resultType="string">
+   select a_role from  authority where a_id=#{a_id}
+ </select>
 </mapper>

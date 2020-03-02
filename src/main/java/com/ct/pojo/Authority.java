@@ -25,4 +25,12 @@ public class Authority implements Serializable {
     public void setaRole(String aRole) {
         this.aRole = aRole == null ? null : aRole.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "aId=" + aId +
+                ", aRole='" + aRole + '\'' +
+                '}';
+    }
 }

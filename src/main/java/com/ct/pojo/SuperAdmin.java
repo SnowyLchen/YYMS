@@ -70,7 +70,7 @@ public class SuperAdmin implements Serializable {
                 ", superName='" + superName + '\'' +
                 ", superPassword='" + superPassword + '\'' +
                 ", superPic='" + superPic + '\'' +
-                ", superRole=" + superRole.getaRole()+
+                ", superRole=" + superRole+
                 '}';
     }
 }
