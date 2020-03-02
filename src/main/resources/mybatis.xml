@@ -10,6 +10,6 @@
     </settings>
     <typeAliases>
         <!--直接注册整个包  默认规则为简写类名-->
-        <package name="com.ct"></package>
+        <package name="com.ct.pojo"></package>
     </typeAliases>
 </configuration>

@@ -36,6 +36,14 @@
         <artifactId>jstl</artifactId>
         <version>1.2</version>
     </dependency>
+    <!--添加servlet-->
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
 
     <!--添加Gson依赖-->
     <dependency>
@@ -123,6 +131,20 @@
     </dependency>
     <!--事务结束-->
 
+    <!--JSR303验证器-->
+    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+    <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>6.0.17.Final</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>2.0.1.Final</version>
+    </dependency>
 
     <!-- 添加mybatis/spring整合包依赖 -->
     <dependency>
