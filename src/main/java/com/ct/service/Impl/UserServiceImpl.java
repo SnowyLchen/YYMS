@@ -6,6 +6,8 @@ import com.ct.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * 其他用户
  */
@@ -38,6 +40,35 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public boolean UserUpdate(User user) {
+        try{
+            boolean row=userMapper.UserUpdate(user);
+            if (row){
+                System.out.println("修改成功");
+                return true;
+            }else {
+                System.out.println("修改失败");
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("修改出错");
+            return false;
+        }
+    }
+
+    @Override
+    public User seeInfo(String uId) {
+        try{
+            User user = userMapper.seeInfo(uId);
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

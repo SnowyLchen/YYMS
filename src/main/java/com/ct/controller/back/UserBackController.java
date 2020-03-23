@@ -19,7 +19,6 @@ public class UserBackController {
     @Autowired
     private UserService userService;
 
-
     /**
      * 用户的注册
      * @param user
@@ -57,7 +56,7 @@ public class UserBackController {
                 }else return "用户名或密码不正确";
 
             }else if(identify!=null&&!identify.equals("")){
-                boolean checkLogin=userService.UserLogin(username,password,identify);
+                boolean checkLogin=userService.UserLogin(null,password,identify);
                 if (checkLogin){
                     return "登录成功";
                 }else return "用户名或密码不正确";
@@ -66,6 +65,45 @@ public class UserBackController {
             }
         }else {
             return "密码为空";
+        }
+    }
+    /**
+     * 用户修改信息
+     */
+    @ResponseBody
+    @RequestMapping("/update")
+    public String update(User user){
+        System.out.println("修改时:"+user);
+        if (user!=null){
+            if (user.getuId()!=null&&!user.getuId().equals("")){
+                boolean checkUpdate=userService.UserUpdate(user);
+                if (checkUpdate){
+                    return "修改成功";
+                }else {
+                    return "修改失败";
+                }
+            }else {
+                return "您未作出任何修改";
+            }
+        }else {
+            return "您未作出任何修改";
+        }
+
+    }
+
+    /**
+     * 查询全部信息
+     * @return
+     */
+
+    @ResponseBody
+    @RequestMapping("/seeInfo")
+    public User seeInfo(String uId){
+        if (uId!=null&&!"".equals(uId)){
+            User user = userService.seeInfo(uId);
+            return user;
+        }else {
+            return null;
         }
     }
 }

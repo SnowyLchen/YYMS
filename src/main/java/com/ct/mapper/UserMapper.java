@@ -18,4 +18,18 @@ public interface UserMapper {
      * @param password
      */
     User UserLogin(@Param("username") String username, @Param("password") String password,@Param("identify") String identify);
+
+    /**
+     * 用户修改
+     * @param user
+     * @return
+     */
+    boolean UserUpdate(User user);
+
+    /**
+     * 查询全部信息
+     * @param uId
+     * @return
+     */
+    User seeInfo(@Param("uId") String uId);
 }

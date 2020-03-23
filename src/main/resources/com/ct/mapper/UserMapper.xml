@@ -22,7 +22,7 @@
       <result column="si_position" property="siPosition" jdbcType="VARCHAR"/>
       <result column="si_salary" property="siSalary" jdbcType="FLOAT"/>
     </association>
-    <association property="superRole" column="a_id" javaType="com.ct.pojo.Authority">
+    <association property="aId" column="a_id" javaType="com.ct.pojo.Authority">
       <id column="a_id" property="aId" jdbcType="INTEGER"/>
       <result column="a_role" property="aRole" jdbcType="VARCHAR"/>
     </association>
@@ -114,5 +114,51 @@
       </if>
 
     </where>
+  </select>
+  <update id="UserUpdate" parameterType="com.ct.pojo.User">
+    update user_info
+    <set>
+      <if test="uUsername != null">
+        u_username=#{uUsername},
+      </if>
+      <if test="uPassword != null">
+        u_password=#{uPassword},
+      </if>
+      <if test="uIdentify != null">
+        u_identify=#{uIdentify},
+      </if>
+      <if test="uEmail != null">
+        u_email=#{uEmail},
+      </if>
+      <if test="uPhoneNum != null">
+        u_phone=#{uPhoneNum},
+      </if>
+      <if test="uSex != null">
+        u_sex=#{uSex},
+      </if>
+      <if test="uIdcard != null">
+        u_IDCard=#{uIdcard},
+      </if>
+      <if test="addId!= null">
+        add_id=#{addId.addId},
+      </if>
+      <if test="uJointime != null">
+        u_jointime=#{uJointime},
+      </if>
+    </set>
+    where u_id=#{uId}
+  </update>
+  <select id="seeInfo" resultMap="UserMap">
+    select t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
+--     t2.add_province,t2.add_city,t2.add_info,
+    t3.si_position,t3.si_salary,t4.a_role,
+    case u_sex when 0 then '女' when 1 then '男' end as `uSex`
+    from user_info t1,
+--     address t2,
+    staff_info t3,authority t4
+    where t1.si_id=t3.si_id and t1.a_id=t4.a_id
+--     and t1.add_id=t2.add_id
+    and u_id=#{uId}
+
   </select>
 </mapper>
