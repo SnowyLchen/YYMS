@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ct.mapper.UserMapper">
+  <resultMap id="UserMap" type="com.ct.pojo.User">
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
+    <result column="u_identify" jdbcType="VARCHAR" property="uIdentify" />
+    <result column="u_email" jdbcType="VARCHAR" property="uEmail" />
+    <result column="u_phone" jdbcType="INTEGER" property="uPhoneNum" />
+    <result column="u_sex" jdbcType="INTEGER" property="uSex" />
+    <result column="u_IDCard" jdbcType="VARCHAR" property="uIdcard" />
+    <result column="u_jointime" jdbcType="VARCHAR" property="uJointime" />
+    <association property="addId" column="add_id" javaType="com.ct.pojo.Address">
+      <id column="add_id" property="addId" jdbcType="INTEGER"/>
+      <result column="add_province" property="addProvince" jdbcType="VARCHAR"/>
+      <result column="add_city" property="addCity" jdbcType="VARCHAR"/>
+      <result column="add_info" property="addInfo" jdbcType="VARCHAR"/>
+    </association>
+    <association property="siId" column="si_id" javaType="com.ct.pojo.Staff_Info">
+      <id column="si_id" property="siId" jdbcType="INTEGER"/>
+      <result column="si_position" property="siPosition" jdbcType="VARCHAR"/>
+      <result column="si_salary" property="siSalary" jdbcType="FLOAT"/>
+    </association>
+    <association property="superRole" column="a_id" javaType="com.ct.pojo.Authority">
+      <id column="a_id" property="aId" jdbcType="INTEGER"/>
+      <result column="a_role" property="aRole" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+  <insert id="UserRegister" parameterType="com.ct.pojo.User">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uUsername != null">
+        u_username,
+      </if>
+      <if test="uPassword != null">
+        u_password,
+      </if>
+      <if test="uIdentify != null">
+        u_identify,
+      </if>
+      <if test="uEmail != null">
+        u_email,
+      </if>
+      <if test="uPhoneNum != null">
+        u_phone,
+      </if>
+      <if test="uSex != null">
+        u_sex,
+      </if>
+      <if test="uIdcard != null">
+        u_IDCard,
+      </if>
+      <if test="addId!= null">
+        add_id,
+      </if>
+      <if test="uJointime != null">
+        u_jointime,
+      </if>
+      <if test="siId!= null">
+        si_id,
+      </if>
+      <if test="aId != null">
+        a_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uUsername != null">
+        #{uUsername},
+      </if>
+      <if test="uPassword != null">
+        #{uPassword},
+      </if>
+      <if test="uIdentify != null">
+        #{uIdentify},
+      </if>
+      <if test="uEmail != null">
+        #{uEmail},
+      </if>
+      <if test="uPhoneNum != null">
+        #{uPhoneNum},
+      </if>
+      <if test="uSex != null">
+        #{uSex},
+      </if>
+      <if test="uIdcard != null">
+        #{uIdcard},
+      </if>
+      <if test="addId != null">
+        #{addId},
+      </if>
+      <if test="uJointime != null">
+        #{uJointime},
+      </if>
+      <if test="siId != null">
+        #{siId},
+      </if>
+      <if test="aId != null">
+        #{aId},
+      </if>
+    </trim>
+  </insert>
+  <select id="UserLogin" resultType="com.ct.pojo.User">
+    select u_username,u_password,u_identify from user_info
+    <where>
+      <if test="username!=null and username!=''">
+        u_username=#{username}
+      </if>
+      <if test="identify!=null and identify!=''">
+       and u_identify=#{identify}
+      </if>
+      <if test="password!=null and password!=''">
+       and u_password=#{password}
+      </if>
+
+    </where>
+  </select>
+</mapper>
