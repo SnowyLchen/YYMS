@@ -7,18 +7,9 @@
     <result column="add_city" jdbcType="VARCHAR" property="addCity" />
     <result column="add_info" jdbcType="VARCHAR" property="addInfo" />
   </resultMap>
-  <insert id="insert" parameterType="com.ct.pojo.Address">
-    insert into address (add_id, add_province, add_city, 
-      add_info)
-    values (#{addId,jdbcType=INTEGER}, #{addProvince,jdbcType=VARCHAR}, #{addCity,jdbcType=VARCHAR}, 
-      #{addInfo,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ct.pojo.Address">
+  <insert id="INSAddress" parameterType="com.ct.pojo.Address">
     insert into address
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="addId != null">
-        add_id,
-      </if>
       <if test="addProvince != null">
         add_province,
       </if>
@@ -30,18 +21,33 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="addId != null">
-        #{addId,jdbcType=INTEGER},
-      </if>
       <if test="addProvince != null">
-        #{addProvince,jdbcType=VARCHAR},
+        #{addProvince},
       </if>
       <if test="addCity != null">
-        #{addCity,jdbcType=VARCHAR},
+        #{addCity},
       </if>
       <if test="addInfo != null">
-        #{addInfo,jdbcType=VARCHAR},
+        #{addInfo},
       </if>
     </trim>
+    <selectKey keyProperty="addId" resultType="Integer" order="AFTER">
+      select LAST_INSERT_ID()
+    </selectKey>
   </insert>
+  <update id="UpdateAddress" parameterType="com.ct.pojo.Address">
+    update address
+    <set>
+      <if test="addProvince != null">
+        add_province=#{addProvince},
+      </if>
+      <if test="addCity != null">
+        add_city=#{addCity},
+      </if>
+      <if test="addInfo != null">
+        add_info=#{addInfo},
+      </if>
+    </set>
+    where add_id=#{addId}
+  </update>
 </mapper>

@@ -1,7 +1,9 @@
 package com.ct.service.Impl;
 
 import com.ct.mapper.UserMapper;
+import com.ct.mapper.UserPicMapper;
 import com.ct.pojo.User;
+import com.ct.pojo.UserPic;
 import com.ct.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserPicMapper userPicMapper;
 
     @Override
     public boolean UserRegister(User user) {
         try{
             int row=userMapper.UserRegister(user);
+            UserPic up=new UserPic();
+            up.setuId(user.getuId());
+            String path="static/upload/images/UserPic/头像.jpg";
+            up.setUserPic(path);
+            userPicMapper.insert(up);
             if (row==0){
                 return false;
             }else return true;
@@ -48,15 +57,15 @@ public class UserServiceImpl implements UserService {
         try{
             boolean row=userMapper.UserUpdate(user);
             if (row){
-                System.out.println("修改成功");
+                System.out.println("User修改成功");
                 return true;
             }else {
-                System.out.println("修改失败");
+                System.out.println("User修改失败");
                 return false;
             }
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("修改出错");
+            System.out.println("User修改出错");
             return false;
         }
     }
@@ -69,6 +78,35 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public String Check_IDENTIFY(Integer uId) {
+        try{
+            String identify=userMapper.Check_IDENTIFY(uId);
+            return identify;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean alterHeadPic(UserPic userPic) {
+        try{
+            boolean row=userPicMapper.alterHeadPic(userPic);
+            if (row){
+                System.out.println("头像修改成功");
+                return true;
+            }else {
+                System.out.println("头像修改失败");
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("头像修改出错");
+            return false;
         }
     }
 }

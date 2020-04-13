@@ -2,6 +2,7 @@ package com.ct.service;
 
 import com.ct.pojo.SuperAdmin;
 import com.ct.pojo.User;
+import com.ct.pojo.UserPic;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,4 +36,16 @@ public interface UserService {
      * @return
      */
     User seeInfo(String uId);
+
+    /**
+     * 获取个性登录号码
+     * @param getuId
+     * @return
+     */
+    String  Check_IDENTIFY(Integer getuId);
+
+    /**
+     * 头像的修改
+     */
+    boolean alterHeadPic(UserPic userPic);
 }

@@ -7,8 +7,8 @@
     <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
     <result column="u_identify" jdbcType="VARCHAR" property="uIdentify" />
     <result column="u_email" jdbcType="VARCHAR" property="uEmail" />
-    <result column="u_phone" jdbcType="INTEGER" property="uPhoneNum" />
-    <result column="u_sex" jdbcType="INTEGER" property="uSex" />
+    <result column="u_phone" jdbcType="VARCHAR" property="uPhoneNum" />
+    <result column="u_sex" jdbcType="VARCHAR" property="USex" />
     <result column="u_IDCard" jdbcType="VARCHAR" property="uIdcard" />
     <result column="u_jointime" jdbcType="VARCHAR" property="uJointime" />
     <association property="addId" column="add_id" javaType="com.ct.pojo.Address">
@@ -87,7 +87,7 @@
         #{uIdcard},
       </if>
       <if test="addId != null">
-        #{addId},
+        #{addId.addId},
       </if>
       <if test="uJointime != null">
         #{uJointime},
@@ -99,6 +99,9 @@
         #{aId},
       </if>
     </trim>
+    <selectKey resultType="integer" order="AFTER" keyProperty="uId">
+      select LAST_INSERT_ID()
+    </selectKey>
   </insert>
   <select id="UserLogin" resultType="com.ct.pojo.User">
     select u_username,u_password,u_identify from user_info
@@ -150,15 +153,17 @@
   </update>
   <select id="seeInfo" resultMap="UserMap">
     select t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
---     t2.add_province,t2.add_city,t2.add_info,
-    t3.si_position,t3.si_salary,t4.a_role,
-    case u_sex when 0 then '女' when 1 then '男' end as `uSex`
+    t2.add_province,t2.add_city,t2.add_info,t1.add_id,
+    CASE t1.u_sex WHEN 0 THEN '女' when 1 then '男' END as `uSex`,t3.si_position,t3.si_salary,t4.a_role
     from user_info t1,
---     address t2,
+    address t2,
     staff_info t3,authority t4
     where t1.si_id=t3.si_id and t1.a_id=t4.a_id
---     and t1.add_id=t2.add_id
-    and u_id=#{uId}
+    and t1.add_id=t2.add_id
+    and t1.u_id=#{uId}
 
+  </select>
+  <select id="Check_IDENTIFY" resultType="string">
+    select u_identify from user_info where u_id=#{uId}
   </select>
 </mapper>

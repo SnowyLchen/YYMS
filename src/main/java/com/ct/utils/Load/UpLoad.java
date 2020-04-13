@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UpLoad {
 
-    //文件上传
+    //多文件上传
     public static void upLoads(MultipartFile[] multipartFiles, HttpSession session, String path){
         List<String> Pictures=new ArrayList<>();
         String ItemPicPath="";
@@ -54,6 +54,44 @@ public class UpLoad {
             }
         }
         session.setAttribute("itemPicturePath",Pictures);
+    }
+    public static String upLoad(MultipartFile multipartFile, HttpSession session, String path){
+        String HeadPicPath="";
+//       1.判断是否为空，不为空才上传
+        if (multipartFile!=null){
+                if (!multipartFile.isEmpty()){
+//            2.获取文件名
+                    String picName=multipartFile.getOriginalFilename();
+//            3.截取原文件前缀
+                    String picNamePrifix=picName.substring(0,picName.lastIndexOf("."));
+//            4.给文件加上时间戳
+                    String NewpicNamePrifix=picNamePrifix+new Date().getTime();
+//            5.给文件补充后缀
+                    SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+                    String fileDate = df.format(new Date());
+                    String NewPicName=NewpicNamePrifix+picName.substring(picName.lastIndexOf("."));
+//            6.构建新的文件
+                    File file=new File(path+fileDate+File.separator+NewPicName);
+//            7.上传
+                    try {
+                        //判断文件夹是否存在，不存在则创建
+                        if (!file.exists()&& !file .isDirectory()){
+                            file.mkdirs();
+//                            if (!file.exists()) {
+//                                file.createNewFile();
+//                            }else {
+//                                System.out.println("文件已存在");
+//                            }
+                        }
+                        multipartFile.transferTo(file);
+                        HeadPicPath=fileDate+File.separator+NewPicName;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        }
+//        session.setAttribute("HeadPicPath",HeadPicPath);
+        return HeadPicPath;
     }
 
 

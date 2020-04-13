@@ -1,6 +1,7 @@
 package com.ct.mapper;
 
 import com.ct.pojo.User;
+import com.ct.pojo.UserPic;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -32,4 +33,12 @@ public interface UserMapper {
      * @return
      */
     User seeInfo(@Param("uId") String uId);
+
+    /**
+     * 获取identify
+     * @param uId
+     * @return
+     */
+    String Check_IDENTIFY(@Param("uId") Integer uId);
+
 }

@@ -3,7 +3,13 @@ package com.ct.mapper;
 import com.ct.pojo.Address;
 
 public interface AddressMapper {
-    int insert(Address record);
+    /**
+     * 插入地址
+     * @param address
+     * @return
+     */
+    int INSAddress(Address address);
 
-    int insertSelective(Address record);
+
+    boolean UpdateAddress(Address address);
 }

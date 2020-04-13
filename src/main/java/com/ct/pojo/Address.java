@@ -13,6 +13,22 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Address(String addProvince, String addCity, String addInfo) {
+        this.addProvince = addProvince;
+        this.addCity = addCity;
+        this.addInfo = addInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "addId=" + addId +
+                ", addProvince='" + addProvince + '\'' +
+                ", addCity='" + addCity + '\'' +
+                ", addInfo='" + addInfo + '\'' +
+                '}';
+    }
+
     public Integer getAddId() {
         return addId;
     }

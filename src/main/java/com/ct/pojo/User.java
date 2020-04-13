@@ -29,7 +29,7 @@ public class User implements Serializable {
     //联系电话
 //    @NotNull(message="联系电话不能为空")
 //    @Pattern(regexp = "^1(3|4|5|7|8)\\d{9}$",message = "手机号码格式有误")
-    private Integer uPhoneNum;
+    private String uPhoneNum;
 
     //性别
     @NotNull(message="性别不能为空")
@@ -97,11 +97,11 @@ public class User implements Serializable {
         this.uEmail = uEmail;
     }
 
-    public Integer getuPhoneNum() {
+    public String getuPhoneNum() {
         return uPhoneNum;
     }
 
-    public void setuPhoneNum(Integer uPhoneNum) {
+    public void setuPhoneNum(String uPhoneNum) {
         this.uPhoneNum = uPhoneNum;
     }
 
@@ -162,7 +162,7 @@ public class User implements Serializable {
                 ", uIdentify='" + uIdentify + '\'' +
                 ", uEmail='" + uEmail + '\'' +
                 ", uPhoneNum=" + uPhoneNum +
-                ", uSex='" + uSex + '\'' +
+                ", uSex性别=" + uSex +
                 ", uIdcard='" + uIdcard + '\'' +
                 ", addId=" + addId +
                 ", uJointime='" + uJointime + '\'' +
