@@ -170,4 +170,20 @@ public class User implements Serializable {
                 ", aId=" + aId +
                 '}';
     }
+
+    public String ToJson() {
+        return  "\""+"uId"+"\":"+"\""+ uId +"\","+
+                "\""+"uUsername"+"\":"+"\""+uUsername +"\","+
+                "\""+"uIdentify"+"\":"+"\""+uIdentify +"\","+
+                "\""+"uEmail"+"\":"+"\""+uEmail +"\","+
+                "\""+"uPhoneNum"+"\":"+"\""+uPhoneNum +"\","+
+                "\""+"uSex"+"\":"+"\""+uSex +"\","+
+                "\""+"uIdcard"+"\":"+"\""+uIdcard +"\","+
+                "\""+"addProvince"+"\":"+"\""+addId.getAddProvince() +"\","+
+                "\""+"addCity"+"\":"+"\""+addId.getAddCity() +"\","+
+                "\""+"addInfo"+"\":"+"\""+addId.getAddInfo() +"\","+
+                "\""+"uJointime"+"\":"+"\""+uJointime +"\","+
+                "\""+"siPosition"+"\":"+"\""+siId.getSiPosition() +"\","+
+                "\""+"aRole"+"\":"+"\""+aId.getaRole() +"\"";
+    }
 }

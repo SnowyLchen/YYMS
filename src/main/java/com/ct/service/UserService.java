@@ -21,7 +21,7 @@ public interface UserService {
      * @param Username
      * @param Password
      */
-    boolean UserLogin(String Username, String Password,String identify);
+    boolean UserLogin(String Username, String Password,String identify, HttpSession session);
 
     /**
      * 用户修改

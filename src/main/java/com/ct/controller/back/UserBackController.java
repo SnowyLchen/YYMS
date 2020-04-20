@@ -30,6 +30,10 @@ public class UserBackController {
 
     private static String TRUE_STR="{\"result\":true}";
     private static String FALSE_STR="{\"result\":false}";
+
+    private static String PREFIX="{\"data\":{";
+    private static String TRUE_SUFFIX="},\"mata\":{\"msg\":\"获取成功\",\"status\":200}}";
+    private static String ERR_SUFFIX="},\"mata\":{\"msg\":\"获取失败\",\"status\":500}}";
     @Autowired
     private UserService userService;
 
@@ -73,7 +77,7 @@ public class UserBackController {
     public String login(String username,String password,String identify,HttpSession session){
         if (password!=null&&!"".equals(password)){
             if (username!=null&&!username.equals("")){
-                boolean checkLogin=userService.UserLogin(username,password,null);
+                boolean checkLogin=userService.UserLogin(username,password,null,session);
                 if (checkLogin){
 //                    return "登录成功";
                     return TRUE_STR;
@@ -82,7 +86,7 @@ public class UserBackController {
                     return FALSE_STR;
 
             }else if(identify!=null&&!identify.equals("")){
-                boolean checkLogin=userService.UserLogin(null,password,identify);
+                boolean checkLogin=userService.UserLogin(null,password,identify,session);
                 if (checkLogin){
 //                    return "登录成功";
                     return TRUE_STR;
@@ -109,7 +113,7 @@ public class UserBackController {
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
             head_pic = multipartRequest.getFile("head_pic");
         }
-        System.out.println("修改时:"+user+address+head_pic);
+//        System.out.println("修改时:"+user+address+head_pic);
         boolean checkUpdate=false;
         if (user!=null){
             if (user.getuId()!=null&&!user.getuId().equals("")){
@@ -196,13 +200,19 @@ public class UserBackController {
 
     @ResponseBody
     @RequestMapping("/seeInfo")
-    public User seeInfo(String uId){
+    public String seeInfo(String uId){
+        String jsonStr="";
+        StringBuilder jsonStrAll = new StringBuilder(PREFIX);
         if (uId!=null&&!"".equals(uId)){
             User user = userService.seeInfo(uId);
-            System.out.println(user);
-            return user;
+            jsonStrAll.append(user.ToJson());
+            jsonStr=jsonStrAll+TRUE_SUFFIX;
+            System.out.println(jsonStr);
+            return jsonStr;
         }else {
-            return null;
+            jsonStr=jsonStrAll+ERR_SUFFIX ;
+            System.out.println(jsonStr);
+            return jsonStr;
         }
     }
 

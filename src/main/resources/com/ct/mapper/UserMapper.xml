@@ -8,7 +8,7 @@
     <result column="u_identify" jdbcType="VARCHAR" property="uIdentify" />
     <result column="u_email" jdbcType="VARCHAR" property="uEmail" />
     <result column="u_phone" jdbcType="VARCHAR" property="uPhoneNum" />
-    <result column="u_sex" jdbcType="VARCHAR" property="USex" />
+    <result column="u_sex" jdbcType="VARCHAR" property="uSex" />
     <result column="u_IDCard" jdbcType="VARCHAR" property="uIdcard" />
     <result column="u_jointime" jdbcType="VARCHAR" property="uJointime" />
     <association property="addId" column="add_id" javaType="com.ct.pojo.Address">
@@ -152,9 +152,11 @@
     where u_id=#{uId}
   </update>
   <select id="seeInfo" resultMap="UserMap">
-    select t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
+    select t1.u_id,t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
     t2.add_province,t2.add_city,t2.add_info,t1.add_id,
-    CASE t1.u_sex WHEN 0 THEN '女' when 1 then '男' END as `uSex`,t3.si_position,t3.si_salary,t4.a_role
+--     CASE t1.u_sex WHEN 0 THEN '女' when 1 then '男' END as `uSex`,
+    t1.u_sex,
+    t3.si_position,t3.si_salary,t4.a_role
     from user_info t1,
     address t2,
     staff_info t3,authority t4

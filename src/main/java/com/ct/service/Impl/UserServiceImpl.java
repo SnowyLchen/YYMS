@@ -8,6 +8,8 @@ import com.ct.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,6 +17,7 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
 
     @Autowired
     private UserMapper userMapper;
@@ -40,10 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean UserLogin(String Username, String Password,String identify) {
+    public boolean UserLogin(String Username, String Password, String identify, HttpSession session) {
         try{
             User user=userMapper.UserLogin(Username,Password,identify);
             if (user!=null){
+                session.setAttribute("USER_ID",user.getuId());
                 return true;
             }else return false;
         }catch (Exception e){
