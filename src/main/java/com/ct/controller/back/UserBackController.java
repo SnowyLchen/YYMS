@@ -8,6 +8,7 @@ import com.ct.service.UserService;
 import com.ct.utils.Load.UpLoad;
 import com.ct.utils.Validators.CheckForm;
 import net.sf.jsqlparser.schema.MultiPartName;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +28,8 @@ import java.io.File;
 @RequestMapping("/User")
 public class UserBackController {
 
+    private static String TRUE_STR="{\"result\":true}";
+    private static String FALSE_STR="{\"result\":false}";
     @Autowired
     private UserService userService;
 
@@ -41,17 +46,21 @@ public class UserBackController {
     @RequestMapping("/register")
     @ResponseBody
     public String register(@Valid User user, BindingResult result, HttpSession session){
-        System.out.println("注册时："+user+"address:"+user.getAddId()+"si:"+user.getSiId());
+//        System.out.println("注册时："+user+"address:"+user.getAddId()+"si:"+user.getSiId());
         if (CheckForm.checkErrors(result,session)){
             Address address=new Address("","","");
             boolean insAddress=addressService.insAddress(address);
             user.setAddId(address);
             boolean Register=userService.UserRegister(user);
             if (Register&&insAddress){
-                return "注册成功";
-            }else return "注册失败";
+//                return "注册成功";
+                return TRUE_STR;
+            }else
+//                return "注册失败";
+                return FALSE_STR;
         }else {
-            return "注册失败";
+//            return "注册失败";
+            return FALSE_STR;
         }
     }
 
@@ -66,19 +75,24 @@ public class UserBackController {
             if (username!=null&&!username.equals("")){
                 boolean checkLogin=userService.UserLogin(username,password,null);
                 if (checkLogin){
-                    return "登录成功";
-                }else return "用户名或密码不正确";
+//                    return "登录成功";
+                    return TRUE_STR;
+                }else
+//                    return "用户名或密码不正确";
+                    return FALSE_STR;
 
             }else if(identify!=null&&!identify.equals("")){
                 boolean checkLogin=userService.UserLogin(null,password,identify);
                 if (checkLogin){
-                    return "登录成功";
-                }else return "用户名或密码不正确";
+//                    return "登录成功";
+                    return TRUE_STR;
+//                }else return "用户名或密码不正确";
+                }else    return FALSE_STR;
             }else {
-                return "用户名为空";
+                return FALSE_STR;
             }
         }else {
-            return "密码为空";
+            return FALSE_STR;
         }
     }
 
@@ -88,7 +102,13 @@ public class UserBackController {
      */
     @ResponseBody
     @RequestMapping("/update")
-    public String update(User user, Address address, HttpSession session, @RequestParam(value = "head_pic") MultipartFile head_pic, HttpServletRequest request){
+    public String update(User user, Address address, HttpSession session, HttpServletRequest request){
+        MultipartFile head_pic=null;
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        if (isMultipart){
+            MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
+            head_pic = multipartRequest.getFile("head_pic");
+        }
         System.out.println("修改时:"+user+address+head_pic);
         boolean checkUpdate=false;
         if (user!=null){
@@ -117,7 +137,8 @@ public class UserBackController {
 //                        checkUpdate=true;
                         System.out.println( "个性登录号码修改成功");
                     }else {
-                        return "个性登录号码已存在";
+//                        return "个性登录号码已存在";
+                        return FALSE_STR;
                     }
                 }
                 System.out.println("------------"+user.getuIdentify());
@@ -145,25 +166,31 @@ public class UserBackController {
                 }
                 checkUpdate=userService.UserUpdate(user);
                 if (checkUpdate&&addHeadPic){
-                    return "人员信息修改成功";
+//                    return "人员信息修改成功";
+                    return TRUE_STR;
                 }else {
-                    return "人员信息修改失败";
+                    return FALSE_STR;
+//                    return "人员信息修改失败";
                 }
             } else if (address!=null){
                 checkUpdate=addressService.UpdateAddress(address);
                 if (checkUpdate){
-                    return "地址修改成功";
-                }else return "地址修改失败";
+//                    return "地址修改成功";
+                    return TRUE_STR;
+                }else return FALSE_STR;
             }else {
-                return "您未作出任何修改";
+                return FALSE_STR;
+//                return "您未作出任何修改";
             }
         }
-       else  return "您未作出任何修改";
+       else
+           return FALSE_STR;
+//           return "您未作出任何修改";
 
     }
 
     /**
-     * 查询全部信息
+     * 查询个人信息
      * @return
      */
 
