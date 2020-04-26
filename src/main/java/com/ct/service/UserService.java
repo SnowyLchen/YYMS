@@ -5,6 +5,7 @@ import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 其他用户
@@ -48,4 +49,12 @@ public interface UserService {
      * 头像的修改
      */
     boolean alterHeadPic(UserPic userPic);
+
+    /**
+     * 获取用户列表
+     * @param pagesize
+     * @param pagenum
+     * @return
+     */
+    String AllUsers(Integer pagesize, Integer pagenum);
 }

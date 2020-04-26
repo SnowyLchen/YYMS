@@ -55,6 +55,9 @@ public class User implements Serializable {
     //用户角色
     private Authority aId;
 
+    //用户头像
+    private UserPic userPic;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getuId() {
@@ -184,6 +187,7 @@ public class User implements Serializable {
                 "\""+"addInfo"+"\":"+"\""+addId.getAddInfo() +"\","+
                 "\""+"uJointime"+"\":"+"\""+uJointime +"\","+
                 "\""+"siPosition"+"\":"+"\""+siId.getSiPosition() +"\","+
+                "\""+"userPic"+"\":"+"\""+ userPic.getUserPic()+"\","+
                 "\""+"aRole"+"\":"+"\""+aId.getaRole() +"\"";
     }
 }

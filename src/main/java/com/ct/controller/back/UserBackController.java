@@ -6,15 +6,18 @@ import com.ct.pojo.UserPic;
 import com.ct.service.AddressService;
 import com.ct.service.UserService;
 import com.ct.utils.Load.UpLoad;
+import com.ct.utils.Validators.Boolean_NULL;
 import com.ct.utils.Validators.CheckForm;
 import net.sf.jsqlparser.schema.MultiPartName;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
@@ -23,7 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
-
+import java.util.List;
+@SessionAttributes(value = {"USER_ID"})
 @Controller
 @RequestMapping("/User")
 public class UserBackController {
@@ -74,12 +78,14 @@ public class UserBackController {
      */
     @ResponseBody
     @RequestMapping("/login")
-    public String login(String username,String password,String identify,HttpSession session){
+    public String login(String username, String password, String identify, Model model,HttpSession session){
         if (password!=null&&!"".equals(password)){
             if (username!=null&&!username.equals("")){
                 boolean checkLogin=userService.UserLogin(username,password,null,session);
                 if (checkLogin){
 //                    return "登录成功";
+                    System.out.println("------------"+session.getAttribute("USER_ID"));
+                    model.addAttribute("USER_ID",session.getAttribute("USER_ID"));
                     return TRUE_STR;
                 }else
 //                    return "用户名或密码不正确";
@@ -100,6 +106,17 @@ public class UserBackController {
         }
     }
 
+    /**
+     * 用户退出
+     * @param session
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("USER_ID");
+        session.invalidate();
+        return TRUE_STR;
+    }
 
     /**
      * 用户修改信息
@@ -217,4 +234,18 @@ public class UserBackController {
     }
 
 
+    /**
+     * 获取用户列表
+     */
+    @ResponseBody
+    @RequestMapping("/AllUsers")
+    public String AllUsers(String pagenum,String pagesize){
+        if (Boolean_NULL.CHECK_NULL(pagenum)&&Boolean_NULL.CHECK_NULL(pagesize)){
+            String users=userService.AllUsers(Integer.parseInt(pagesize),Integer.parseInt(pagenum));
+            users=users+TRUE_SUFFIX;
+            return users;
+        }else {
+            return PREFIX+ERR_SUFFIX;
+        }
+    }
 }

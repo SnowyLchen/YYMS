@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ct.mapper.AuthorityMapper">
-  <resultMap id="BaseResultMap" type="com.ct.pojo.Authority">
+  <resultMap id="AuthorityMap" type="com.ct.pojo.Authority">
     <result column="a_id" jdbcType="INTEGER" property="aId" />
     <result column="a_role" jdbcType="VARCHAR" property="aRole" />
   </resultMap>

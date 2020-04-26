@@ -4,6 +4,8 @@ import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
 
     /**
@@ -41,4 +43,17 @@ public interface UserMapper {
      */
     String Check_IDENTIFY(@Param("uId") Integer uId);
 
+    /**
+     * 获取用户列表
+     * @param offset
+     * @param pagesize
+     * @return
+     */
+    List<User> AllUsers(@Param("offset") Integer offset,@Param("pagesize") Integer pagesize);
+
+    /**
+     * 查询用户数量
+     * @return
+     */
+    int queryAllUsersCount();
 }

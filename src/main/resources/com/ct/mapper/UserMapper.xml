@@ -26,6 +26,9 @@
       <id column="a_id" property="aId" jdbcType="INTEGER"/>
       <result column="a_role" property="aRole" jdbcType="VARCHAR"/>
     </association>
+    <association property="userPic" column="user_pic" javaType="com.ct.pojo.UserPic">
+      <result column="user_pic" property="userPic" jdbcType="VARCHAR"/>
+    </association>
   </resultMap>
   <insert id="UserRegister" parameterType="com.ct.pojo.User">
     insert into user_info
@@ -104,7 +107,7 @@
     </selectKey>
   </insert>
   <select id="UserLogin" resultType="com.ct.pojo.User">
-    select u_username,u_password,u_identify from user_info
+    select u_id,u_username,u_password,u_identify from user_info
     <where>
       <if test="username!=null and username!=''">
         u_username=#{username}
@@ -156,10 +159,10 @@
     t2.add_province,t2.add_city,t2.add_info,t1.add_id,
 --     CASE t1.u_sex WHEN 0 THEN '女' when 1 then '男' END as `uSex`,
     t1.u_sex,
-    t3.si_position,t3.si_salary,t4.a_role
+    t3.si_position,t3.si_salary,t4.a_role,t5.user_pic
     from user_info t1,
     address t2,
-    staff_info t3,authority t4
+    staff_info t3,authority t4,user_info_pic t5
     where t1.si_id=t3.si_id and t1.a_id=t4.a_id
     and t1.add_id=t2.add_id
     and t1.u_id=#{uId}
@@ -168,4 +171,24 @@
   <select id="Check_IDENTIFY" resultType="string">
     select u_identify from user_info where u_id=#{uId}
   </select>
+  <select id="AllUsers" resultMap="UserMap">
+       select t1.u_id,t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
+    t2.add_province,t2.add_city,t2.add_info,t1.add_id,
+--     CASE t1.u_sex WHEN 0 THEN '女' when 1 then '男' END as `uSex`,
+    t1.u_sex,
+    t3.si_position,t3.si_salary,t4.a_role,t5.user_pic
+    from user_info t1,
+    address t2,
+    staff_info t3,authority t4,user_info_pic t5
+    where t1.si_id=t3.si_id and t1.a_id=t4.a_id
+    and t1.add_id=t2.add_id
+    and t1.u_id=t5.u_id
+    order by t1.u_id asc
+    limit #{offset},#{pagesize}
+
+  </select>
+  <select id="queryAllUsersCount" resultType="integer">
+    select count(*) from user_info
+  </select>
+
 </mapper>

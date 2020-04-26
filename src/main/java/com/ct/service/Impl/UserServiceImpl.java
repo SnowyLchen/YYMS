@@ -5,11 +5,13 @@ import com.ct.mapper.UserPicMapper;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import com.ct.service.UserService;
+import com.ct.utils.Convert.convertJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
             User user=userMapper.UserLogin(Username,Password,identify);
             if (user!=null){
                 session.setAttribute("USER_ID",user.getuId());
+                System.out.println("获取的id："+session.getAttribute("USER_ID"));
                 return true;
             }else return false;
         }catch (Exception e){
@@ -111,6 +114,24 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             System.out.println("头像修改出错");
             return false;
+        }
+    }
+
+    @Override
+    public String AllUsers(Integer pagesize, Integer pagenum) {
+        List<User> users=null;
+        try{
+            Integer offset=(pagenum-1)*pagesize;
+            System.out.println(offset+"--"+pagesize);
+            users=userMapper.AllUsers(offset,pagesize);
+            int count=userMapper.queryAllUsersCount();
+            String user= convertJSON.Convert(count,users);
+            System.out.println(user);
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+            String user= convertJSON.Convert(0,users);
+            return user;
         }
     }
 }
