@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ct.mapper.MedicineStockMapper">
+  <resultMap id="MedicineStockMap" type="com.ct.pojo.MedicineStock">
+    <result column="ms_id" jdbcType="INTEGER" property="msId" />
+    <result column="mi_id" jdbcType="INTEGER" property="miId" />
+    <result column="ms_stock" jdbcType="INTEGER" property="msStock" />
+    <result column="ms_sales" jdbcType="INTEGER" property="msSales" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ct.pojo.MedicineStock">
+    insert into medicine_stock (ms_id, mi_id, ms_stock, 
+      ms_sales)
+    values (#{msId,jdbcType=INTEGER}, #{miId,jdbcType=INTEGER}, #{msStock,jdbcType=INTEGER}, 
+      #{msSales,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.ct.pojo.MedicineStock">
+    insert into medicine_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msId != null">
+        ms_id,
+      </if>
+      <if test="miId != null">
+        mi_id,
+      </if>
+      <if test="msStock != null">
+        ms_stock,
+      </if>
+      <if test="msSales != null">
+        ms_sales,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msId != null">
+        #{msId,jdbcType=INTEGER},
+      </if>
+      <if test="miId != null">
+        #{miId,jdbcType=INTEGER},
+      </if>
+      <if test="msStock != null">
+        #{msStock,jdbcType=INTEGER},
+      </if>
+      <if test="msSales != null">
+        #{msSales,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

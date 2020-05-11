@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ct.mapper.MedicineMapper">
+  <resultMap id="MedicineMap" type="com.ct.pojo.Medicine">
+    <id column="mi_id" jdbcType="INTEGER" property="miId"/>
+    <result column="mi_number" jdbcType="VARCHAR" property="miNumber" />
+    <result column="mi_name" jdbcType="VARCHAR" property="miName" />
+    <result column="mi_prince" jdbcType="DOUBLE" property="miPrince" />
+    <result column="mi_amount" jdbcType="INTEGER" property="miAmount" />
+    <result column="mi_standard" jdbcType="VARCHAR" property="miStandard" />
+    <association property="mt2Id" column="mt2_id" javaType="com.ct.pojo.MedicineType">
+      <result column="mt2_id" jdbcType="INTEGER" property="mtId" />
+      <result column="mt_sec_type" jdbcType="INTEGER" property="mtSecType" />
+    </association>
+    <association property="suId" column="su_id" javaType="com.ct.pojo.Supplier">
+      <result column="su_id" jdbcType="INTEGER" property="suId" />
+      <result column="su_name" jdbcType="VARCHAR" property="suName" />
+      <result column="su_phone" jdbcType="VARCHAR" property="suPhone" />
+    </association>
+    <association property="medicineStock" column="ms_id" javaType="com.ct.pojo.MedicineStock">
+      <id column="ms_id" property="msId" jdbcType="INTEGER"/>
+      <result column="ms_stock" property="msStock" jdbcType="VARCHAR"/>
+      <result column="ms_sales" property="msSales" jdbcType="VARCHAR"/>
+    </association>
+    <association property="medicinePic" column="mp_id" javaType="com.ct.pojo.MedicinePic">
+      <result column="mp_pic" jdbcType="VARCHAR" property="mpPic"/>
+    </association>
+  </resultMap>
+
+  <insert id="addDrugs" parameterType="com.ct.pojo.Medicine">
+    insert into medicine_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="suId != null">
+        su_id,
+      </if>
+      <if test="miNumber != null">
+        mi_number,
+      </if>
+      <if test="miName != null">
+        mi_name,
+      </if>
+      <if test="miPrince != null">
+        mi_prince,
+      </if>
+      <if test="miAmount != null">
+        mi_amount,
+      </if>
+      <if test="miStandard != null">
+        mi_standard,
+      </if>
+      <if test="mt2Id != null">
+        mt2_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="suId != null">
+        #{suId},
+      </if>
+      <if test="miNumber != null">
+        #{miNumber},
+      </if>
+      <if test="miName != null">
+        #{miName},
+      </if>
+      <if test="miPrince != null">
+        #{miPrince},
+      </if>
+      <if test="miAmount != null">
+        #{miAmount},
+      </if>
+      <if test="miStandard != null">
+        #{miStandard},
+      </if>
+      <if test="mt2Id != null">
+        #{mt2Id},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryAllDrugs" resultMap="MedicineMap">
+    select t1.mi_id, t1.mi_number, t1.mi_name, t1.mi_prince, t1.mi_standard, t2.mp_pic,t3.ms_stock,t3.ms_sales,
+    t4.su_name,t4.su_phone
+    from medicine_info t1,medicine_pic t2,medicine_stock t3,supplier t4
+    where t1.mi_id=t2.mi_id and t1.ms_id=t3.ms_id and  t1.su_id=t4.su_id
+    order by t1.mi_id asc
+    limit #{offset},#{pagesize}
+  </select>
+  <select id="queryAllDrugsCount" resultType="integer">
+    select count(*) from medicine_info
+  </select>
+
+  <select id="queryDrug" resultType="com.ct.pojo.Medicine">
+  <bind name="_name" value="'%'+miName+'%'"/>
+     select t1.mi_id, t1.mi_number, t1.mi_name, t1.mi_prince, t1.mi_standard, t2.mp_pic,t3.ms_stock,t3.ms_sales
+    t4.su_name,t4.su_phone
+    from medicine_info t1,medicine_pic t2,medicine_stock t3,supplier t4
+    where t1.mi_id=t2.mi_id and t1.ms_id=t3.ms_id and  t1.su_id=t4.su_id
+    and t1.mi_name COLLATE utf8_general_ci like #{_name}
+  </select>
+</mapper>
