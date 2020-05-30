@@ -44,8 +44,8 @@ public class DrugsController {
         }
 //        MedicinePic mp=new MedicinePic();
 //        mp.setMpPic(mp_pic);
-        medicine.setSuId(supplier);
-        medicine.setMt2Id(medicineType);
+        medicine.setSupplier(supplier);
+        medicine.setMedicineType(medicineType);
         if(medicine!=null){
             boolean add=drugService.addDrugs(medicine,address);
             if (add){

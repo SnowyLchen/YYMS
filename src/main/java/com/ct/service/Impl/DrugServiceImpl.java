@@ -33,14 +33,14 @@ public class DrugServiceImpl implements DrugService {
                 return false;
             }
             //添加供应商，并返回其suId
-            Supplier supplier=medicine.getSuId();
+            Supplier supplier=medicine.getSupplier();
             supplier.setAddId(address.getAddId());
             int su=supplierMapper.addSupplier(supplier);
             if (su==0){
                 System.out.println("供应商添加失败");
                 return false;
             }
-            medicine.setSuId(supplier);
+            medicine.setSupplier(supplier);
             int row=medicineMapper.addDrugs(medicine);
             if (row==0){
                 return false;
@@ -95,7 +95,7 @@ public class DrugServiceImpl implements DrugService {
             List<Medicine> mt2 =medicineMapper.queryType();
             for (int i=0;i<mt2.size();i++){
 //                System.out.println(mt2.get(i).getMt2Id());
-                mt.add(mt2.get(i).getMt2Id());
+                mt.add(mt2.get(i).getMedicineType());
             }
             String drug= convertJSON.ConvertDrugsType(mt);
             System.out.println(drug);

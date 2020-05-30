@@ -8,13 +8,13 @@
     <result column="mi_prince" jdbcType="DOUBLE" property="miPrince" />
     <result column="mi_amount" jdbcType="INTEGER" property="miAmount" />
     <result column="mi_standard" jdbcType="VARCHAR" property="miStandard" />
-    <association property="mt2Id" column="mt2_id" javaType="com.ct.pojo.MedicineType">
+    <association property="medicineType" column="mt2_id" javaType="com.ct.pojo.MedicineType">
       <result column="mt2_id" jdbcType="INTEGER" property="mt2Id" />
       <result column="mt_id" jdbcType="INTEGER" property="mtId" />
       <result column="mt_sec_type" jdbcType="VARCHAR" property="mtSecType" />
       <result column="mt_fir_type" jdbcType="VARCHAR" property="mtFirType" />
     </association>
-    <association property="suId" column="su_id" javaType="com.ct.pojo.Supplier">
+    <association property="supplier" column="su_id" javaType="com.ct.pojo.Supplier">
       <result column="su_id" jdbcType="INTEGER" property="suId" />
       <result column="su_name" jdbcType="VARCHAR" property="suName" />
       <result column="su_phone" jdbcType="VARCHAR" property="suPhone" />
@@ -32,7 +32,7 @@
   <insert id="addDrugs" parameterType="com.ct.pojo.Medicine">
     insert into medicine_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="suId != null">
+      <if test="supplier != null">
         su_id,
       </if>
       <if test="miNumber != null">
@@ -50,13 +50,13 @@
       <if test="miStandard != null">
         mi_standard,
       </if>
-      <if test="mt2Id != null">
+      <if test="medicineType != null">
         mt2_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="suId != null">
-        #{suId.suId},
+      <if test="supplier != null">
+        #{supplier.suId},
       </if>
       <if test="miNumber != null">
         #{miNumber},
@@ -73,8 +73,8 @@
       <if test="miStandard != null">
         #{miStandard},
       </if>
-      <if test="mt2Id != null">
-        #{mt2Id.mt2Id},
+      <if test="medicineType != null">
+        #{medicineType.mt2Id},
       </if>
     </trim>
   </insert>

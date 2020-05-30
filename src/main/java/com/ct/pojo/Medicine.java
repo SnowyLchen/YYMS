@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Medicine implements Serializable {
     private Integer miId;
 
-    private Supplier suId;
+    private Supplier supplier;
 
     private String miNumber;
 
@@ -17,7 +17,7 @@ public class Medicine implements Serializable {
 
     private String miStandard;
 
-    private MedicineType mt2Id;
+    private MedicineType medicineType;
 
     private MedicineStock medicineStock;
 
@@ -73,20 +73,20 @@ public class Medicine implements Serializable {
         this.miStandard = miStandard == null ? null : miStandard.trim();
     }
 
-    public void setSuId(Supplier suId) {
-        this.suId = suId;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public MedicineType getMt2Id() {
-        return mt2Id;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
-    public void setMt2Id(MedicineType mt2Id) {
-        this.mt2Id = mt2Id;
+    public MedicineType getMedicineType() {
+        return medicineType;
     }
 
-    public Supplier getSuId() {
-        return suId;
+    public void setMedicineType(MedicineType medicineType) {
+        this.medicineType = medicineType;
     }
 
     public MedicineStock getMedicineStock() {
@@ -109,13 +109,13 @@ public class Medicine implements Serializable {
     public String toString() {
         return "Medicine{" +
                 "miId=" + miId +
-                ", suId=" + suId +
+                ", suId=" + supplier +
                 ", miNumber='" + miNumber + '\'' +
                 ", miName='" + miName + '\'' +
                 ", miPrince=" + miPrince +
                 ", miAmount=" + miAmount +
                 ", miStandard='" + miStandard + '\'' +
-                ", mt2Id=" + mt2Id +
+                ", mt2Id=" + medicineType +
                 ", medicineStock=" + medicineStock +
                 ", medicinePic=" + medicinePic +
                 '}';
@@ -130,7 +130,7 @@ public class Medicine implements Serializable {
                 "\""+"me_name"+"\":"+"\""+miName +"\","+
                 "\""+"me_pic"+"\":"+"\""+medicinePic.getMpPic() +"\","+
                 "\""+"me_price"+"\":"+"\""+miPrince +"\","+
-                "\""+"su_name"+"\":"+"\""+suId.getSuName() +"\","+
-                "\""+"su_phone"+"\":"+"\""+suId.getSuPhone() +"\"";
+                "\""+"su_name"+"\":"+"\""+supplier.getSuName() +"\","+
+                "\""+"su_phone"+"\":"+"\""+supplier.getSuPhone() +"\"";
     }
 }
