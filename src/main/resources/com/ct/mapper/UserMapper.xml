@@ -17,8 +17,8 @@
       <result column="add_city" property="addCity" jdbcType="VARCHAR"/>
       <result column="add_info" property="addInfo" jdbcType="VARCHAR"/>
     </association>
-    <association property="siId" column="si_id" javaType="com.ct.pojo.Staff_Info">
-      <id column="si_id" property="siId" jdbcType="INTEGER"/>
+    <association property="staff_info" column="si_id" javaType="com.ct.pojo.Staff_Info">
+      <id column="si_id" property="staff_info" jdbcType="INTEGER"/>
       <result column="si_position" property="siPosition" jdbcType="VARCHAR"/>
       <result column="si_salary" property="siSalary" jdbcType="FLOAT"/>
     </association>
@@ -60,7 +60,7 @@
       <if test="uJointime != null">
         u_jointime,
       </if>
-      <if test="siId!= null">
+      <if test="staff_info!= null">
         si_id,
       </if>
       <if test="aId != null">
@@ -95,8 +95,8 @@
       <if test="uJointime != null">
         #{uJointime},
       </if>
-      <if test="siId != null">
-        #{siId},
+      <if test="staff_info != null">
+        #{staff_info},
       </if>
       <if test="aId != null">
         #{aId},

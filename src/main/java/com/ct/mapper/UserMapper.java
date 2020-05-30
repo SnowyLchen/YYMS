@@ -70,5 +70,5 @@ public interface UserMapper {
      * @param siId
      * @return
      */
-    boolean updatePosition(Staff_Info siId);
+    boolean updatePosition(Staff_Info siId,@Param("uId") Integer uId);
 }
