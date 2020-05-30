@@ -1,9 +1,9 @@
 package com.ct.service.Impl;
 
+import com.ct.mapper.AddressMapper;
 import com.ct.mapper.MedicineMapper;
-import com.ct.pojo.Medicine;
-import com.ct.pojo.MedicineType;
-import com.ct.pojo.User;
+import com.ct.mapper.SupplierMapper;
+import com.ct.pojo.*;
 import com.ct.service.DrugService;
 import com.ct.utils.Convert.convertJSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,30 @@ public class DrugServiceImpl implements DrugService {
 
     @Autowired
     MedicineMapper medicineMapper;
+    @Autowired
+    SupplierMapper supplierMapper;
+
+    @Autowired
+    private AddressMapper addressMapper;
 
     @Override
-    public boolean addDrugs(Medicine medicine) {
+    public boolean addDrugs(Medicine medicine, Address address) {
         try {
+            //添加供应商地址,并返回地址id
+            int add=addressMapper.INSAddress(address);
+            if (add==0){
+                System.out.println("供应商地址添加失败");
+                return false;
+            }
+            //添加供应商，并返回其suId
+            Supplier supplier=medicine.getSuId();
+            supplier.setAddId(address.getAddId());
+            int su=supplierMapper.addSupplier(supplier);
+            if (su==0){
+                System.out.println("供应商添加失败");
+                return false;
+            }
+            medicine.setSuId(supplier);
             int row=medicineMapper.addDrugs(medicine);
             if (row==0){
                 return false;

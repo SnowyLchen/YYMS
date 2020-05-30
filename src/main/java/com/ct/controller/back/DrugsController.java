@@ -1,9 +1,7 @@
 package com.ct.controller.back;
 
 import com.ct.mapper.MedicineMapper;
-import com.ct.pojo.Medicine;
-import com.ct.pojo.MedicinePic;
-import com.ct.pojo.MedicineType;
+import com.ct.pojo.*;
 import com.ct.service.DrugService;
 import com.ct.utils.Validators.Boolean_NULL;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -37,7 +35,7 @@ public class DrugsController {
      * @return
      */
     @RequestMapping("/addDrugs")
-    public String addDrugs(Medicine medicine, MedicineType medicineType,HttpServletRequest request){
+    public String addDrugs(Medicine medicine, Address address, Supplier supplier, MedicineType medicineType, HttpServletRequest request){
         MultipartFile mp_pic=null;
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
@@ -46,8 +44,10 @@ public class DrugsController {
         }
 //        MedicinePic mp=new MedicinePic();
 //        mp.setMpPic(mp_pic);
+        medicine.setSuId(supplier);
+        medicine.setMt2Id(medicineType);
         if(medicine!=null){
-            boolean add=drugService.addDrugs(medicine);
+            boolean add=drugService.addDrugs(medicine,address);
             if (add){
                 return TRUE_STR;
             }else return FALSE_STR;

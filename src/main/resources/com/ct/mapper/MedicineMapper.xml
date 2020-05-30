@@ -56,7 +56,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="suId != null">
-        #{suId},
+        #{suId.suId},
       </if>
       <if test="miNumber != null">
         #{miNumber},
@@ -74,7 +74,7 @@
         #{miStandard},
       </if>
       <if test="mt2Id != null">
-        #{mt2Id},
+        #{mt2Id.mt2Id},
       </if>
     </trim>
   </insert>

@@ -1,9 +1,6 @@
 package com.ct.service;
 
-import com.ct.pojo.Medicine;
-import com.ct.pojo.MedicineType;
-import com.ct.pojo.User;
-import com.ct.pojo.UserPic;
+import com.ct.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +14,7 @@ public interface DrugService {
     /**
      * 药品添加
      */
-    boolean addDrugs(Medicine medicine);
+    boolean addDrugs(Medicine medicine, Address address);
 
     /**
      * 查询所有药品

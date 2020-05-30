@@ -5,20 +5,10 @@
     <result column="su_id" jdbcType="INTEGER" property="suId" />
     <result column="su_name" jdbcType="VARCHAR" property="suName" />
     <result column="su_phone" jdbcType="INTEGER" property="suPhone" />
-    <result column="add_id" jdbcType="INTEGER" property="addId" />
   </resultMap>
-  <insert id="insert" parameterType="com.ct.pojo.Supplier">
-    insert into supplier (su_id, su_name, su_phone, 
-      add_id)
-    values (#{suId,jdbcType=INTEGER}, #{suName,jdbcType=VARCHAR}, #{suPhone,jdbcType=INTEGER}, 
-      #{addId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ct.pojo.Supplier">
+  <insert id="addSupplier" parameterType="com.ct.pojo.Supplier">
     insert into supplier
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="suId != null">
-        su_id,
-      </if>
       <if test="suName != null">
         su_name,
       </if>
@@ -30,9 +20,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="suId != null">
-        #{suId,jdbcType=INTEGER},
-      </if>
       <if test="suName != null">
         #{suName,jdbcType=VARCHAR},
       </if>
@@ -43,5 +30,8 @@
         #{addId,jdbcType=INTEGER},
       </if>
     </trim>
+    <selectKey resultType="integer" order="AFTER" keyProperty="suId">
+      select LAST_INSERT_ID()
+    </selectKey>
   </insert>
 </mapper>
