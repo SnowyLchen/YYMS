@@ -1,6 +1,7 @@
 package com.ct.controller.back;
 
 import com.ct.pojo.Address;
+import com.ct.pojo.Staff_Info;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import com.ct.service.AddressService;
@@ -86,7 +87,7 @@ public class UserBackController {
 //                    return "登录成功";
                     System.out.println("------------"+session.getAttribute("USER_ID"));
                     model.addAttribute("USER_ID",session.getAttribute("USER_ID"));
-                    return TRUE_STR;
+                    return TRUE_STR.split("}")[0]+",\"USER_ID\":"+session.getAttribute("USER_ID")+"}";
                 }else
 //                    return "用户名或密码不正确";
                     return FALSE_STR;
@@ -95,7 +96,7 @@ public class UserBackController {
                 boolean checkLogin=userService.UserLogin(null,password,identify,session);
                 if (checkLogin){
 //                    return "登录成功";
-                    return TRUE_STR;
+                    return TRUE_STR.split("}")[0]+",\"USER_ID\":"+session.getAttribute("USER_ID")+"}";
 //                }else return "用户名或密码不正确";
                 }else    return FALSE_STR;
             }else {
@@ -123,8 +124,9 @@ public class UserBackController {
      */
     @ResponseBody
     @RequestMapping("/update")
-    public String update(User user, Address address, HttpSession session, HttpServletRequest request){
+    public String update(User user, Staff_Info staff_info, Address address, HttpSession session, HttpServletRequest request){
         MultipartFile head_pic=null;
+        user.setSiId(staff_info);
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
@@ -248,4 +250,22 @@ public class UserBackController {
             return PREFIX+ERR_SUFFIX;
         }
     }
+
+    /**
+     * 删除用户
+     */
+    @ResponseBody
+    @RequestMapping("/delete")
+    public String delete(String uId){
+        if (Boolean_NULL.CHECK_NULL(uId)&&Boolean_NULL.CHECK_NULL(uId)){
+           boolean del=userService.delete(uId);
+            if (del){
+                return TRUE_STR;
+            }else return FALSE_STR;
+        }else {
+            return FALSE_STR;
+        }
+    }
+
+
 }
