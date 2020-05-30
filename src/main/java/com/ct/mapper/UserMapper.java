@@ -56,4 +56,6 @@ public interface UserMapper {
      * @return
      */
     int queryAllUsersCount();
+
+    int delete(@Param("uId") String uId);
 }

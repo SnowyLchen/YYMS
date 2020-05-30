@@ -55,6 +55,36 @@
     <servlet-name>dispatcherServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <!--dwr服务技术-->
+  <servlet>
+    <servlet-name>dwr_invoke</servlet-name>
+    <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+    <init-param>
+      <description>调试DWR,发布系统时应将其设为false</description>
+      <param-name>debug</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <description>使用服务器推技术(反转AJAX)</description>
+      <param-name>activeReverseAjaxEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>initApplicationScopeCreatorsAtStartup</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>maxWaitAfterWrite</param-name>
+      <param-value>100</param-value>
+    </init-param>
+    <load-on-startup>4</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dwr_invoke</servlet-name>
+    <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+  
   <!--spring启动监听器配置-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

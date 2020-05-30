@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
     public boolean UserUpdate(User user) {
         try{
             boolean row=userMapper.UserUpdate(user);
+
             if (row){
                 System.out.println("User修改成功");
                 return true;
@@ -132,6 +133,19 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             String user= convertJSON.Convert(0,users);
             return user;
+        }
+    }
+
+    @Override
+    public boolean delete(String uId) {
+        try{
+            int row=userMapper.delete(uId);
+            if (row==0){
+                return false;
+            }else return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

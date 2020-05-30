@@ -57,4 +57,6 @@ public interface UserService {
      * @return
      */
     String AllUsers(Integer pagesize, Integer pagenum);
+
+    boolean delete(String uId);
 }

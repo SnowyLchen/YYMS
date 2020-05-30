@@ -190,5 +190,8 @@
   <select id="queryAllUsersCount" resultType="integer">
     select count(*) from user_info
   </select>
-
+<delete id="delete">
+  delete from user_info
+  where u_id=#{uId}
+</delete>
 </mapper>
