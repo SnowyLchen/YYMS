@@ -126,7 +126,7 @@ public class UserBackController {
     @RequestMapping("/update")
     public String update(User user, Staff_Info staff_info, Address address, HttpSession session, HttpServletRequest request){
         MultipartFile head_pic=null;
-        user.setSiId(staff_info);
+        user.setStaff_info(staff_info);
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);

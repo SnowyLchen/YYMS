@@ -50,7 +50,7 @@ public class User implements Serializable {
     private String uJointime;
 
     //职位
-    private  Staff_Info siId;
+    private  Staff_Info staff_info;
 
     //用户角色
     private Authority aId;
@@ -140,12 +140,20 @@ public class User implements Serializable {
         this.uJointime = uJointime;
     }
 
-    public Staff_Info getSiId() {
-        return siId;
+    public Staff_Info getStaff_info() {
+        return staff_info;
     }
 
-    public void setSiId(Staff_Info siId) {
-        this.siId = siId;
+    public void setStaff_info(Staff_Info staff_info) {
+        this.staff_info = staff_info;
+    }
+
+    public UserPic getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(UserPic userPic) {
+        this.userPic = userPic;
     }
 
     public Authority getaId() {
@@ -169,7 +177,7 @@ public class User implements Serializable {
                 ", uIdcard='" + uIdcard + '\'' +
                 ", addId=" + addId +
                 ", uJointime='" + uJointime + '\'' +
-                ", siId=" + siId +
+                ", siId=" + staff_info +
                 ", aId=" + aId +
                 '}';
     }
@@ -186,8 +194,8 @@ public class User implements Serializable {
                 "\""+"addCity"+"\":"+"\""+addId.getAddCity() +"\","+
                 "\""+"addInfo"+"\":"+"\""+addId.getAddInfo() +"\","+
                 "\""+"uJointime"+"\":"+"\""+uJointime +"\","+
-                "\""+"siPosition"+"\":"+"\""+siId.getSiPosition() +"\","+
-                "\""+"siSalary"+"\":"+"\""+siId.getSiSalary() +"\","+
+                "\""+"siPosition"+"\":"+"\""+staff_info.getSiPosition() +"\","+
+                "\""+"siSalary"+"\":"+"\""+staff_info.getSiSalary() +"\","+
                 "\""+"userPic"+"\":"+"\""+ userPic.getUserPic()+"\","+
                 "\""+"aRole"+"\":"+"\""+aId.getaRole() +"\"";
     }
