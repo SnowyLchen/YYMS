@@ -34,4 +34,13 @@ public class Staff_Info implements Serializable {
     public void setSiSalary(Float siSalary) {
         this.siSalary = siSalary;
     }
+
+    @Override
+    public String toString() {
+        return "Staff_Info{" +
+                "siId=" + siId +
+                ", siPosition='" + siPosition + '\'' +
+                ", siSalary=" + siSalary +
+                '}';
+    }
 }

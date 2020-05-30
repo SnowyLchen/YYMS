@@ -2,10 +2,12 @@ package com.ct.mapper;
 
 import com.ct.pojo.Staff_Info;
 
-public interface Staff_InfoMapper {
-    int insert(Staff_Info record);
+import java.util.List;
 
-    int insertSelective(Staff_Info record);
+public interface Staff_InfoMapper {
+//    int insert(Staff_Info record);
+//
+//    int insertSelective(Staff_Info record);
 
 
 
@@ -14,5 +16,11 @@ public interface Staff_InfoMapper {
      * @param siId
      * @return
      */
-    boolean updatePosition(Staff_Info siId);
+//    boolean updatePosition(Staff_Info siId);
+
+
+    /**
+     * 查询所有职位
+     */
+    List<Staff_Info> queryPosi();
 }

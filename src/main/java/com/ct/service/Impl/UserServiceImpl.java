@@ -3,6 +3,7 @@ package com.ct.service.Impl;
 import com.ct.mapper.Staff_InfoMapper;
 import com.ct.mapper.UserMapper;
 import com.ct.mapper.UserPicMapper;
+import com.ct.pojo.Staff_Info;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import com.ct.service.UserService;
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
     public boolean UserUpdate(User user) {
         try{
             boolean row=userMapper.UserUpdate(user);
-            boolean posi=staff_infoMapper.updatePosition(user.getSiId());
+            boolean posi=userMapper.updatePosition(user.getSiId());
             if (row&&posi){
                 System.out.println("User修改成功");
                 return true;
@@ -149,6 +150,18 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<Staff_Info>  queryPosi() {
+        List<Staff_Info> staff_infos=null;
+        try{
+            staff_infos=staff_infoMapper.queryPosi();
+            return staff_infos;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

@@ -269,4 +269,15 @@ public class UserBackController {
     }
 
 
+    /**
+     * 查询所有职位
+     */
+    @ResponseBody
+    @RequestMapping("/queryPosi")
+    public List<Staff_Info>  queryPosi(){
+        List<Staff_Info> si=userService.queryPosi();
+        System.out.println(si);
+        return si;
+    }
+
 }

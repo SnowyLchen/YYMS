@@ -194,5 +194,13 @@
   delete from user_info
   where u_id=#{uId}
 </delete>
-
+<update id="updatePosition" parameterType="com.ct.pojo.Staff_Info">
+    update user_info
+    <set>
+        <if test="si_position != null">
+            si_position=#{siPosition},
+        </if>
+    </set>
+    where u_id=#{uId}
+</update>
 </mapper>

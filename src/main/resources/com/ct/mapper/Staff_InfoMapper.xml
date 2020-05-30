@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ct.mapper.Staff_InfoMapper">
-  <update id="updatePosition" parameterType="com.ct.pojo.Staff_Info">
-    update staff_info
-    <set>
-      <if test="si_salary != null">
-        si_salary =#{siSalary},
-      </if>
-      <if test="si_position != null">
-        si_position=#{siPosition},
-      </if>
-    </set>
-    where u_id=#{uId}
-  </update>
+    <resultMap id="suMap" type="com.ct.pojo.Staff_Info">
+        <id column="si_id" property="siId"/>
+        <result property="siPosition" column="si_position"/>
+        <result property="siSalary" column="si_salary"/>
+    </resultMap>
+<select id="queryPosi" resultMap="suMap">
+    select si_id, si_position, si_salary
+    from staff_info
+</select>
 </mapper>

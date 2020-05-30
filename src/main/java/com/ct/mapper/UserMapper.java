@@ -65,5 +65,10 @@ public interface UserMapper {
      */
     int delete(@Param("uId") String uId);
 
-
+    /**
+     * 更新职位
+     * @param siId
+     * @return
+     */
+    boolean updatePosition(Staff_Info siId);
 }

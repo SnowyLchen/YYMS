@@ -1,5 +1,6 @@
 package com.ct.service;
 
+import com.ct.pojo.Staff_Info;
 import com.ct.pojo.SuperAdmin;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
@@ -59,4 +60,6 @@ public interface UserService {
     String AllUsers(Integer pagesize, Integer pagenum);
 
     boolean delete(String uId);
+
+    List<Staff_Info>  queryPosi();
 }
