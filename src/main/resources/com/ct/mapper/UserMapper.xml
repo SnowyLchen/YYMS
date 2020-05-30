@@ -148,6 +148,9 @@
       <if test="addId!= null">
         add_id=#{addId.addId},
       </if>
+      <if test="staff_info!= null">
+        si_id=#{staff_info.siId},
+      </if>
       <if test="uJointime != null">
         u_jointime=#{uJointime},
       </if>
@@ -194,7 +197,7 @@
   delete from user_info
   where u_id=#{uId}
 </delete>
-<update id="updatePosition" parameterType="com.ct.pojo.Staff_Info">
-    update user_info si_id=#{siId} where u_id=#{uId}
+<update id="updatePosition">
+--     update user_info set si_id=#{siId} where u_id=#{uId}
 </update>
 </mapper>

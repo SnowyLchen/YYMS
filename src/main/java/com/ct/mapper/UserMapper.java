@@ -67,8 +67,8 @@ public interface UserMapper {
 
     /**
      * 更新职位
-     * @param siId
+     * @param staff_info
      * @return
      */
-    boolean updatePosition(Staff_Info siId,@Param("uId") Integer uId);
+    boolean updatePosition(Staff_Info staff_info,@Param("uId") Integer uId);
 }

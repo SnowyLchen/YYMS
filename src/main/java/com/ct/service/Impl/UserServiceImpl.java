@@ -67,8 +67,9 @@ public class UserServiceImpl implements UserService {
     public boolean UserUpdate(User user) {
         try{
             boolean row=userMapper.UserUpdate(user);
-            boolean posi=userMapper.updatePosition(user.getStaff_info(),user.getuId());
-            if (row&&posi){
+            System.out.println(user);
+//            boolean posi=userMapper.updatePosition(user.getStaff_info(),user.getuId());
+            if (row){
                 System.out.println("User修改成功");
                 return true;
             }else {

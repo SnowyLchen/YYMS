@@ -127,6 +127,7 @@ public class UserBackController {
     public String update(User user, Staff_Info staff_info, Address address, HttpSession session, HttpServletRequest request){
         MultipartFile head_pic=null;
         user.setStaff_info(staff_info);
+        System.out.println(staff_info);
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
