@@ -260,6 +260,7 @@ public class UserBackController {
         if (Boolean_NULL.CHECK_NULL(uId)&&Boolean_NULL.CHECK_NULL(uId)){
            boolean del=userService.delete(uId);
             if (del){
+                System.out.println("删除成功");
                 return TRUE_STR;
             }else return FALSE_STR;
         }else {
