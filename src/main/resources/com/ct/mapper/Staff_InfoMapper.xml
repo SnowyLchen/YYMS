@@ -1,76 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ct.mapper.Staff_InfoMapper">
-  <!--<resultMap id="BaseResultMap" type="com.ct.pojo.Staff_Info">-->
-    <!--<result column="si_id" jdbcType="INTEGER" property="siId" />-->
-    <!--<result column="si_position" jdbcType="VARCHAR" property="siPosition" />-->
-    <!--<result column="si_salary" jdbcType="REAL" property="siSalary" />-->
-  <!--</resultMap>-->
-  <!--<insert id="insert" parameterType="com.ct.pojo.Staff_Info">-->
-    <!--insert into staff_info (si_id, si_position, si_salary-->
-      <!--)-->
-    <!--values (#{siId,jdbcType=INTEGER}, #{siPosition,jdbcType=VARCHAR}, #{siSalary,jdbcType=REAL}-->
-      <!--)-->
-  <!--</insert>-->
-  <!--<insert id="insertSelective" parameterType="com.ct.pojo.Staff_Info">-->
-    <!--insert into staff_info-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-      <!--<if test="siId != null">-->
-        <!--si_id,-->
-      <!--</if>-->
-      <!--<if test="siPosition != null">-->
-        <!--si_position,-->
-      <!--</if>-->
-      <!--<if test="siSalary != null">-->
-        <!--si_salary,-->
-      <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-      <!--<if test="siId != null">-->
-        <!--#{siId,jdbcType=INTEGER},-->
-      <!--</if>-->
-      <!--<if test="siPosition != null">-->
-        <!--#{siPosition,jdbcType=VARCHAR},-->
-      <!--</if>-->
-      <!--<if test="siSalary != null">-->
-        <!--#{siSalary,jdbcType=REAL},-->
-      <!--</if>-->
-    <!--</trim>-->
-  <!--</insert>-->
-  <!--<resultMap id="BaseResultMap" type="com.ct.pojo.Staff_Info">-->
-    <!--<result column="si_id" jdbcType="INTEGER" property="siId" />-->
-    <!--<result column="si_position" jdbcType="VARCHAR" property="siPosition" />-->
-    <!--<result column="si_salary" jdbcType="REAL" property="siSalary" />-->
-  <!--</resultMap>-->
-  <!--<insert id="insert" parameterType="com.ct.pojo.Staff_Info">-->
-    <!--insert into staff_info (si_id, si_position, si_salary-->
-      <!--)-->
-    <!--values (#{siId,jdbcType=INTEGER}, #{siPosition,jdbcType=VARCHAR}, #{siSalary,jdbcType=REAL}-->
-      <!--)-->
-  <!--</insert>-->
-  <!--<insert id="insertSelective" parameterType="com.ct.pojo.Staff_Info">-->
-    <!--insert into staff_info-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-      <!--<if test="siId != null">-->
-        <!--si_id,-->
-      <!--</if>-->
-      <!--<if test="siPosition != null">-->
-        <!--si_position,-->
-      <!--</if>-->
-      <!--<if test="siSalary != null">-->
-        <!--si_salary,-->
-      <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-      <!--<if test="siId != null">-->
-        <!--#{siId,jdbcType=INTEGER},-->
-      <!--</if>-->
-      <!--<if test="siPosition != null">-->
-        <!--#{siPosition,jdbcType=VARCHAR},-->
-      <!--</if>-->
-      <!--<if test="siSalary != null">-->
-        <!--#{siSalary,jdbcType=REAL},-->
-      <!--</if>-->
-    <!--</trim>-->
-  <!--</insert>-->
+  <update id="updatePosition" parameterType="com.ct.pojo.Staff_Info">
+    update staff_info
+    <set>
+      <if test="si_salary != null">
+        si_salary =#{siSalary},
+      </if>
+      <if test="si_position != null">
+        si_position=#{siPosition},
+      </if>
+    </set>
+    where u_id=#{uId}
+  </update>
 </mapper>

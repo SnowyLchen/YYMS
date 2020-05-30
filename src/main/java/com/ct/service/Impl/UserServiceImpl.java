@@ -1,5 +1,6 @@
 package com.ct.service.Impl;
 
+import com.ct.mapper.Staff_InfoMapper;
 import com.ct.mapper.UserMapper;
 import com.ct.mapper.UserPicMapper;
 import com.ct.pojo.User;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private UserPicMapper userPicMapper;
+    @Autowired
+    private Staff_InfoMapper staff_infoMapper;
 
     @Override
     public boolean UserRegister(User user) {
@@ -63,8 +66,8 @@ public class UserServiceImpl implements UserService {
     public boolean UserUpdate(User user) {
         try{
             boolean row=userMapper.UserUpdate(user);
-
-            if (row){
+            boolean posi=staff_infoMapper.updatePosition(user.getSiId());
+            if (row&&posi){
                 System.out.println("User修改成功");
                 return true;
             }else {

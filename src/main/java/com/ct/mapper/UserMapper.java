@@ -1,5 +1,6 @@
 package com.ct.mapper;
 
+import com.ct.pojo.Staff_Info;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import org.apache.ibatis.annotations.Param;
@@ -57,5 +58,12 @@ public interface UserMapper {
      */
     int queryAllUsersCount();
 
+    /**
+     * 删除用户
+     * @param uId
+     * @return
+     */
     int delete(@Param("uId") String uId);
+
+
 }

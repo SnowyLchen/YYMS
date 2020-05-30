@@ -194,4 +194,5 @@
   delete from user_info
   where u_id=#{uId}
 </delete>
+
 </mapper>
