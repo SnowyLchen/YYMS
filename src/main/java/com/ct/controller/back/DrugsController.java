@@ -2,6 +2,7 @@ package com.ct.controller.back;
 
 import com.ct.mapper.MedicineMapper;
 import com.ct.pojo.Medicine;
+import com.ct.pojo.MedicinePic;
 import com.ct.pojo.MedicineType;
 import com.ct.service.DrugService;
 import com.ct.utils.Validators.Boolean_NULL;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/Drugs")
@@ -42,6 +44,8 @@ public class DrugsController {
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
             mp_pic = multipartRequest.getFile("mp_pic");
         }
+//        MedicinePic mp=new MedicinePic();
+//        mp.setMpPic(mp_pic);
         if(medicine!=null){
             boolean add=drugService.addDrugs(medicine);
             if (add){
@@ -65,5 +69,29 @@ public class DrugsController {
         }
     }
 
+    /**
+     * 查询所有药品分类
+     */
+    @RequestMapping("/queryType")
+    public String queryType(){
+//        drugService.queryType()+TRUE_SUFFIX;
+        return drugService.queryType()+TRUE_SUFFIX;
+    }
 
+    /**
+     * 通过日期区间查询药品信息
+     */
+
+
+    /**
+     * 添加商品分类
+     */
+
+    @RequestMapping("/addType")
+    public String addType(MedicineType medicineType){
+
+
+
+        return null;
+    }
 }

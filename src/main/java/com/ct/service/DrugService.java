@@ -1,11 +1,13 @@
 package com.ct.service;
 
 import com.ct.pojo.Medicine;
+import com.ct.pojo.MedicineType;
 import com.ct.pojo.User;
 import com.ct.pojo.UserPic;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 其他用户
@@ -19,8 +21,6 @@ public interface DrugService {
 
     /**
      * 查询所有药品
-     * @param parseInt
-     * @param parseInt1
      * @return
      */
 
@@ -30,5 +30,9 @@ public interface DrugService {
      * 按商品名查询
      */
     String queryDrug(String name);
-    
+
+    /**
+     * 查询所有商品分类
+     */
+    String queryType();
 }

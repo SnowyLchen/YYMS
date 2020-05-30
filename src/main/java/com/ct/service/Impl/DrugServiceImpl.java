@@ -2,12 +2,14 @@ package com.ct.service.Impl;
 
 import com.ct.mapper.MedicineMapper;
 import com.ct.pojo.Medicine;
+import com.ct.pojo.MedicineType;
 import com.ct.pojo.User;
 import com.ct.service.DrugService;
 import com.ct.utils.Convert.convertJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,6 +64,27 @@ public class DrugServiceImpl implements DrugService {
             e.printStackTrace();
             String drug= convertJSON.ConvertDrugs(0,drugs);
             return drug;
+        }
+    }
+
+    @Override
+    public String queryType() {
+        try{
+            List<MedicineType> mt =new ArrayList<>();
+           //查询所有分类
+            List<Medicine> mt2 =medicineMapper.queryType();
+            for (int i=0;i<mt2.size();i++){
+//                System.out.println(mt2.get(i).getMt2Id());
+                mt.add(mt2.get(i).getMt2Id());
+            }
+            String drug= convertJSON.ConvertDrugsType(mt);
+            System.out.println(drug);
+            return drug;
+        }catch (Exception e){
+            e.printStackTrace();
+//            String drug= convertJSON.ConvertDrugs(0,drugs);
+//            return drug;
+            return null;
         }
     }
 }

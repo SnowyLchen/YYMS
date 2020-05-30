@@ -9,8 +9,10 @@
     <result column="mi_amount" jdbcType="INTEGER" property="miAmount" />
     <result column="mi_standard" jdbcType="VARCHAR" property="miStandard" />
     <association property="mt2Id" column="mt2_id" javaType="com.ct.pojo.MedicineType">
-      <result column="mt2_id" jdbcType="INTEGER" property="mtId" />
-      <result column="mt_sec_type" jdbcType="INTEGER" property="mtSecType" />
+      <result column="mt2_id" jdbcType="INTEGER" property="mt2Id" />
+      <result column="mt_id" jdbcType="INTEGER" property="mtId" />
+      <result column="mt_sec_type" jdbcType="VARCHAR" property="mtSecType" />
+      <result column="mt_fir_type" jdbcType="VARCHAR" property="mtFirType" />
     </association>
     <association property="suId" column="su_id" javaType="com.ct.pojo.Supplier">
       <result column="su_id" jdbcType="INTEGER" property="suId" />
@@ -96,5 +98,11 @@
     from medicine_info t1,medicine_pic t2,medicine_stock t3,supplier t4
     where t1.mi_id=t2.mi_id and t1.ms_id=t3.ms_id and  t1.su_id=t4.su_id
     and t1.mi_name COLLATE utf8_general_ci like #{_name}
+  </select>
+
+  <select id="queryType" resultMap="MedicineMap">
+     select t2.mt2_id,t2.mt_id, t1.mt_fir_type,t2.mt_sec_type
+    from medicine_type t1,medicine_type2 t2
+    where t1.mt_id=t2.mt_id
   </select>
 </mapper>
