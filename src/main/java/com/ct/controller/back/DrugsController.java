@@ -133,4 +133,19 @@ public class DrugsController {
         }
      else return FALSE_STR;
     }
+
+
+    /**
+     * 删除药品
+     */
+    @RequestMapping("/delete")
+    public String delete(String miId){
+        if (miId!=null){
+            boolean at=drugService.deleteDrug(Integer.parseInt(miId));
+            if (at){
+                return TRUE_STR;
+            }else return FALSE_STR;
+        }
+        else return FALSE_STR;
+    }
 }

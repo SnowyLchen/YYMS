@@ -20,4 +20,6 @@ public interface MedicineMapper {
     List<Medicine> queryType();
 
     int addType(MedicineType medicineType);
+
+    int deleteDrug(@Param("miId") Integer miId);
 }

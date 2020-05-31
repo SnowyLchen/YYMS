@@ -42,4 +42,6 @@ public interface DrugService {
     String queryAllInfo(int parseInt, int parseInt1);
 
     String queryBetweenTime(String start, String end);
+
+    boolean deleteDrug(int miId);
 }

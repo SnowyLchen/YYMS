@@ -129,6 +129,19 @@ public class DrugServiceImpl implements DrugService {
     }
 
     @Override
+    public boolean deleteDrug(int miId) {
+        try{
+            int row=medicineMapper.deleteDrug(miId);
+            if (row==0){
+                return false;
+            }else return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public String queryAllInfo(int pagesize, int pagenum) {
             List<outRepository> or=null;
         try{
