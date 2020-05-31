@@ -32,4 +32,5 @@ public interface DrugService {
      * 查询所有商品分类
      */
     String queryType();
+
 }

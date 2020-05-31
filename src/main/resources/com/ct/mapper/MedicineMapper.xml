@@ -77,6 +77,9 @@
         #{medicineType.mt2Id},
       </if>
     </trim>
+    <selectKey resultType="integer" order="AFTER" keyProperty="miId">
+      select LAST_INSERT_ID()
+    </selectKey>
   </insert>
 
   <select id="queryAllDrugs" resultMap="MedicineMap">

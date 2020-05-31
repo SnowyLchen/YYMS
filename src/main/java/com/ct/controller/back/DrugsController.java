@@ -3,6 +3,7 @@ package com.ct.controller.back;
 import com.ct.mapper.MedicineMapper;
 import com.ct.pojo.*;
 import com.ct.service.DrugService;
+import com.ct.utils.Load.UpLoad;
 import com.ct.utils.Validators.Boolean_NULL;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -35,15 +38,26 @@ public class DrugsController {
      * @return
      */
     @RequestMapping("/addDrugs")
-    public String addDrugs(Medicine medicine, Address address, Supplier supplier, MedicineType medicineType, HttpServletRequest request){
+    public String addDrugs(Medicine medicine, Address address, HttpSession session,Supplier supplier, MedicineType medicineType, HttpServletRequest request){
         MultipartFile mp_pic=null;
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart){
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
             mp_pic = multipartRequest.getFile("mp_pic");
         }
-//        MedicinePic mp=new MedicinePic();
-//        mp.setMpPic(mp_pic);
+            String drugPicPath = "";
+            String newdrugPicPath = "";
+        if (mp_pic!=null) {
+            String path = request.getServletContext().getRealPath("/static/upload/images/DrugsPic") + File.separator;
+            String drugsPic = UpLoad.upLoad(mp_pic, session, path);
+            //获取图片的相对地址
+            drugPicPath = "static/upload/images/UserPic" + File.separator + drugsPic;
+            //将所有的‘\’替换成‘/’
+            newdrugPicPath = drugPicPath.replaceAll("\\\\", "/");
+        }else return FALSE_STR;
+        MedicinePic mp=new MedicinePic();
+        mp.setMpPic(newdrugPicPath);
+        medicine.setMedicinePic(mp);
         medicine.setSupplier(supplier);
         medicine.setMedicineType(medicineType);
         if(medicine!=null){

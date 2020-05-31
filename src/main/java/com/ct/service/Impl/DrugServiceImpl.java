@@ -2,6 +2,7 @@ package com.ct.service.Impl;
 
 import com.ct.mapper.AddressMapper;
 import com.ct.mapper.MedicineMapper;
+import com.ct.mapper.MedicinePicMapper;
 import com.ct.mapper.SupplierMapper;
 import com.ct.pojo.*;
 import com.ct.service.DrugService;
@@ -22,6 +23,8 @@ public class DrugServiceImpl implements DrugService {
 
     @Autowired
     private AddressMapper addressMapper;
+    @Autowired
+    private MedicinePicMapper medicinePicMapper;
 
     @Override
     public boolean addDrugs(Medicine medicine, Address address) {
@@ -42,7 +45,10 @@ public class DrugServiceImpl implements DrugService {
             }
             medicine.setSupplier(supplier);
             int row=medicineMapper.addDrugs(medicine);
-            if (row==0){
+            MedicinePic medicinePic=medicine.getMedicinePic();
+            medicinePic.setMiId(medicine.getMiId());
+            int pic=medicinePicMapper.insMp_pic(medicinePic);
+            if (row==0||pic==0){
                 return false;
             }else
                 return true;

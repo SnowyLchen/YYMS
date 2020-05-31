@@ -133,7 +133,7 @@ public class UserBackController {
             MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
             head_pic = multipartRequest.getFile("head_pic");
         }
-//        System.out.println("修改时:"+user+address+head_pic);
+        System.out.println("修改时:"+user+address+head_pic);
         boolean checkUpdate=false;
         if (user!=null){
             if (user.getuId()!=null&&!user.getuId().equals("")){
