@@ -51,7 +51,7 @@ public class DrugsController {
             String path = request.getServletContext().getRealPath("/static/upload/images/DrugsPic") + File.separator;
             String drugsPic = UpLoad.upLoad(mp_pic, session, path);
             //获取图片的相对地址
-            drugPicPath = "static/upload/images/UserPic" + File.separator + drugsPic;
+            drugPicPath = "static/upload/images/DrugsPic" + File.separator + drugsPic;
             //将所有的‘\’替换成‘/’
             newdrugPicPath = drugPicPath.replaceAll("\\\\", "/");
         }else return FALSE_STR;
@@ -82,6 +82,19 @@ public class DrugsController {
             return PREFIX+ERR_SUFFIX;
         }
     }
+    /**
+     * 查询所有销售信息
+     */
+    @RequestMapping("/queryAllInfo")
+    public String queryAllInfo(String pagenum,String pagesize){
+        if (Boolean_NULL.CHECK_NULL(pagenum)&&Boolean_NULL.CHECK_NULL(pagesize)){
+            String Drugs=drugService.queryAllInfo(Integer.parseInt(pagesize),Integer.parseInt(pagenum));
+            Drugs=Drugs+TRUE_SUFFIX;
+            return Drugs;
+        }else {
+            return PREFIX+ERR_SUFFIX;
+        }
+    }
 
     /**
      * 查询所有药品分类
@@ -103,9 +116,12 @@ public class DrugsController {
 
     @RequestMapping("/addType")
     public String addType(MedicineType medicineType){
-
-
-
-        return null;
+        if (medicineType!=null){
+            boolean at=drugService.addType(medicineType);
+            if (at){
+                return TRUE_STR;
+            }else return FALSE_STR;
+        }
+     else return FALSE_STR;
     }
 }

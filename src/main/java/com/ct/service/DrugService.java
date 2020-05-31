@@ -33,4 +33,11 @@ public interface DrugService {
      */
     String queryType();
 
+    /**
+     * 添加商品分类
+     * @return
+     */
+    boolean addType(MedicineType medicineType);
+
+    String queryAllInfo(int parseInt, int parseInt1);
 }

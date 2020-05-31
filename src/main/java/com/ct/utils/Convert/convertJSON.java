@@ -3,6 +3,7 @@ package com.ct.utils.Convert;
 import com.ct.pojo.Medicine;
 import com.ct.pojo.MedicineType;
 import com.ct.pojo.User;
+import com.ct.pojo.outRepository;
 
 import java.util.List;
 
@@ -79,7 +80,10 @@ public class convertJSON {
                 for (int j = i+1; j < list.size(); j++) {
                     if (list.get(i).getMtId().equals(list.get(j).getMtId())) {
                         jsonStrAll.append("{"+list.get(i).getFirToJSON() + ",\"M2Type\":[");
+//                        for (int k=i;k<j;k++){
+
                         jsonStrAll.append("{" + list.get(i).getSecToJSON() + "},"+"{" + list.get(j).getSecToJSON() + "}]},");
+//                        }
                         break;}
 //                    }if (!list.get(i).getMtId().equals(list.get(j).getMtId())){
 //                        System.out.println("不相等的循环");
@@ -97,6 +101,36 @@ public class convertJSON {
             //把最后的，（逗号）截取掉
             str = jsonStrAll.substring(0, jsonStrAll.length() - 1) + "]";
             System.out.println("---"+str);
+            return str;
+        }else {
+            str = jsonStrAll+ "{}]";
+            return str;
+        }
+    }
+
+
+
+    /**
+     * 药品销售信息
+     * @param count
+     * @param list
+     * @return
+     */
+    public static String ConvertInfo(int count, List<outRepository> list) {
+        System.out.println("========"+list);
+        //定义一个StringBuilder
+        StringBuilder jsonStrAll = new StringBuilder();
+        String str=null;
+        jsonStrAll.append(PREFIX+"\""+"totalpage"+"\""+":"+count+","+"\""+
+                "me"+"\""+":[");
+        if (list!=null&&list.size()>0) {
+            for (int i = 0; i < list.size(); i++) {
+                //把你要拼接的字段放进去
+                jsonStrAll.append("{"+list.get(i).ToJson() + "},");
+            }
+            //把最后的，（逗号）截取掉
+            str = jsonStrAll.substring(0, jsonStrAll.length() - 1) + "]";
+//            System.out.println(str);
             return str;
         }else {
             str = jsonStrAll+ "{}]";

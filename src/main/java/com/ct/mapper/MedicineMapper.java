@@ -18,4 +18,6 @@ public interface MedicineMapper {
     Medicine queryDrug(@Param("miName") String name);
 
     List<Medicine> queryType();
+
+    int addType(MedicineType medicineType);
 }

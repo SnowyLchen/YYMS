@@ -194,7 +194,7 @@ public class User implements Serializable {
                 "\""+"addCity"+"\":"+"\""+addId.getAddCity() +"\","+
                 "\""+"addInfo"+"\":"+"\""+addId.getAddInfo() +"\","+
                 "\""+"uJointime"+"\":"+"\""+uJointime +"\","+
-//                "\""+"siId"+"\":"+"\""+staff_info.getSiId() +"\","+
+                "\""+"siId"+"\":"+"\""+staff_info.getSiId() +"\","+
                 "\""+"siPosition"+"\":"+"\""+staff_info.getSiPosition() +"\","+
                 "\""+"siSalary"+"\":"+"\""+staff_info.getSiSalary() +"\","+
                 "\""+"userPic"+"\":"+"\""+ userPic.getUserPic()+"\","+

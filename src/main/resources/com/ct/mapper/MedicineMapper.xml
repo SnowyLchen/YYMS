@@ -108,4 +108,8 @@
     from medicine_type t1,medicine_type2 t2
     where t1.mt_id=t2.mt_id
   </select>
+
+  <insert id="addType" parameterType="com.ct.pojo.MedicineType">
+    insert  into medicine_type2(mt_id, mt_sec_type) values ()
+  </insert>
 </mapper>

@@ -54,7 +54,7 @@
             tableName->数据表名
             domainObjectName->要生成的实体类名
          -->
-        <table tableName="supplier" domainObjectName="Supplier"
+        <table tableName="out_repository" domainObjectName="out_repository"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
             <property name="useActualColumnNames" value="false"/>

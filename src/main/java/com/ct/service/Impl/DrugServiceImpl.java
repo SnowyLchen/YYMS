@@ -1,9 +1,6 @@
 package com.ct.service.Impl;
 
-import com.ct.mapper.AddressMapper;
-import com.ct.mapper.MedicineMapper;
-import com.ct.mapper.MedicinePicMapper;
-import com.ct.mapper.SupplierMapper;
+import com.ct.mapper.*;
 import com.ct.pojo.*;
 import com.ct.service.DrugService;
 import com.ct.utils.Convert.convertJSON;
@@ -25,6 +22,9 @@ public class DrugServiceImpl implements DrugService {
     private AddressMapper addressMapper;
     @Autowired
     private MedicinePicMapper medicinePicMapper;
+
+    @Autowired
+    private out_repositoryMapper outRepositoryMapper;
 
     @Override
     public boolean addDrugs(Medicine medicine, Address address) {
@@ -111,6 +111,34 @@ public class DrugServiceImpl implements DrugService {
 //            String drug= convertJSON.ConvertDrugs(0,drugs);
 //            return drug;
             return null;
+        }
+    }
+
+    @Override
+    public boolean addType(MedicineType medicineType) {
+        try{
+            int row=medicineMapper.addType(medicineType);
+            if (row==0){
+                return false;
+            }else return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public String queryAllInfo(int pagesize, int pagenum) {
+            List<outRepository> or=null;
+        try{
+            Integer offset=(pagenum-1)*pagesize;
+            or=outRepositoryMapper.queryAll(offset,pagesize);
+            String str=convertJSON.ConvertInfo(1,or);
+            return str;
+        }catch (Exception e){
+            e.printStackTrace();
+            String str=convertJSON.ConvertInfo(0,or);
+            return str;
         }
     }
 }
