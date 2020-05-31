@@ -18,7 +18,7 @@
       <result column="add_info" property="addInfo" jdbcType="VARCHAR"/>
     </association>
     <association property="staff_info" column="si_id" javaType="com.ct.pojo.Staff_Info">
-      <id column="si_id" property="staff_info" jdbcType="INTEGER"/>
+      <id column="si_id" property="siId" jdbcType="INTEGER"/>
       <result column="si_position" property="siPosition" jdbcType="VARCHAR"/>
       <result column="si_salary" property="siSalary" jdbcType="FLOAT"/>
     </association>
@@ -167,6 +167,7 @@
     staff_info t3,authority t4,user_info_pic t5
     where t1.si_id=t3.si_id and t1.a_id=t4.a_id
     and t1.add_id=t2.add_id
+    AND t1.`u_id`=t5.`u_id`
     and t1.u_id=#{uId}
 
   </select>
