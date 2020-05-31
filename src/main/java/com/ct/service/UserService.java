@@ -62,4 +62,6 @@ public interface UserService {
     boolean delete(String uId);
 
     List<Staff_Info>  queryPosi();
+
+    String queryById(String identify);
 }

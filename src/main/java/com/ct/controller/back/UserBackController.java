@@ -251,6 +251,20 @@ public class UserBackController {
             return PREFIX+ERR_SUFFIX;
         }
     }
+    /**
+     * 通过id查询用户列表（模糊查询）
+     */
+    @ResponseBody
+    @RequestMapping("/queryById")
+    public String queryById(String Identify){
+        if (Boolean_NULL.CHECK_NULL(Identify)){
+            String users=userService.queryById(Identify);
+            users=users+TRUE_SUFFIX;
+            return users;
+        }else {
+            return PREFIX+ERR_SUFFIX;
+        }
+    }
 
     /**
      * 删除用户

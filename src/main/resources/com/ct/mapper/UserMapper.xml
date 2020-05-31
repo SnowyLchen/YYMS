@@ -190,6 +190,21 @@
     limit #{offset},#{pagesize}
 
   </select>
+  <select id="queryById" resultMap="UserMap">
+       select t1.u_id,t1.u_username,t1.u_identify,t1.u_email,t1.u_phone,t1.u_IDCard,t1.u_jointime,
+    t2.add_province,t2.add_city,t2.add_info,t1.add_id,
+    t1.u_sex,
+    t3.si_position,t3.si_salary,t4.a_role,t5.user_pic
+    from user_info t1,
+    address t2,
+    staff_info t3,authority t4,user_info_pic t5
+    where t1.si_id=t3.si_id and t1.a_id=t4.a_id
+    and t1.add_id=t2.add_id
+    and t1.u_id=t5.u_id and t1.u_IDCard like #{identify}"%"
+    order by t1.u_id asc
+
+
+  </select>
   <select id="queryAllUsersCount" resultType="integer">
     select count(*) from user_info
   </select>

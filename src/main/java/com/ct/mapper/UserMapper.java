@@ -71,4 +71,11 @@ public interface UserMapper {
      * @return
      */
     boolean updatePosition(Staff_Info staff_info,@Param("uId") Integer uId);
+
+    /**
+     * 通过id模糊查询
+     * @param identify
+     * @return
+     */
+    List<User> queryById(@Param("identify") String identify);
 }

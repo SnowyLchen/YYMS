@@ -165,4 +165,19 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public String queryById(String identify) {
+        List<User> users=null;
+        try{
+            users=userMapper.queryById(identify);
+            String user= convertJSON.Convert(5,users);
+            System.out.println(user);
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+            String user= convertJSON.Convert(0,users);
+            return user;
+        }
+    }
 }
