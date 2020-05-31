@@ -108,7 +108,16 @@ public class DrugsController {
     /**
      * 通过日期区间查询药品信息
      */
-
+    @RequestMapping("/queryBetweenTime")
+    public String queryBetweenTime(String start,String end){
+        if (Boolean_NULL.CHECK_NULL(start)&&Boolean_NULL.CHECK_NULL(end)){
+            String Drugs=drugService.queryBetweenTime(start,end);
+            Drugs=Drugs+TRUE_SUFFIX;
+            return Drugs;
+        }else {
+            return PREFIX+ERR_SUFFIX;
+        }
+    }
 
     /**
      * 添加商品分类

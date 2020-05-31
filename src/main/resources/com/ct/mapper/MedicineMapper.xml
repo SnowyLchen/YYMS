@@ -110,6 +110,6 @@
   </select>
 
   <insert id="addType" parameterType="com.ct.pojo.MedicineType">
-    insert  into medicine_type2(mt_id, mt_sec_type) values ()
+    insert  into medicine_type2(mt_id, mt_sec_type) values (#{mtId},#{mtSecType})
   </insert>
 </mapper>

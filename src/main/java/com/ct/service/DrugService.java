@@ -40,4 +40,6 @@ public interface DrugService {
     boolean addType(MedicineType medicineType);
 
     String queryAllInfo(int parseInt, int parseInt1);
+
+    String queryBetweenTime(String start, String end);
 }

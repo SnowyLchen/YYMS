@@ -134,7 +134,20 @@ public class DrugServiceImpl implements DrugService {
         try{
             Integer offset=(pagenum-1)*pagesize;
             or=outRepositoryMapper.queryAll(offset,pagesize);
-            String str=convertJSON.ConvertInfo(1,or);
+            String str=convertJSON.ConvertInfo(10,or);
+            return str;
+        }catch (Exception e){
+            e.printStackTrace();
+            String str=convertJSON.ConvertInfo(0,or);
+            return str;
+        }
+    }
+    @Override
+    public String queryBetweenTime(String start, String end) {
+            List<outRepository> or=null;
+        try{
+            or=outRepositoryMapper.queryBetweenTime(start,end);
+            String str=convertJSON.ConvertInfo(10,or);
             return str;
         }catch (Exception e){
             e.printStackTrace();
