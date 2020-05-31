@@ -118,6 +118,16 @@ public class DrugsController {
             return PREFIX+ERR_SUFFIX;
         }
     }
+    @RequestMapping("/queryByName")
+    public String queryByName(String name,String queryData){
+        if (Boolean_NULL.CHECK_NULL(name)&&Boolean_NULL.CHECK_NULL(queryData)){
+            String Drugs=drugService.queryByName(name,queryData);
+            Drugs=Drugs+TRUE_SUFFIX;
+            return Drugs;
+        }else {
+            return PREFIX+ERR_SUFFIX;
+        }
+    }
 
     /**
      * 添加商品分类

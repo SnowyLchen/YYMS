@@ -44,4 +44,6 @@ public interface DrugService {
     String queryBetweenTime(String start, String end);
 
     boolean deleteDrug(int miId);
+
+    String queryByName(String name,String queryData);
 }

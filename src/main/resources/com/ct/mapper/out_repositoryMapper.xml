@@ -67,6 +67,15 @@
     where t1.mi_id=t3.mi_id and t3.u_id=t2.u_id and t4.mi_id=t1.mi_id
     limit #{offset},#{pagesize}
   </select>
+
+  <select id="queryByName" resultMap="ReposiMap">
+    <bind name="_name" value="'%'+name+'%'"/>
+    select t1.mi_id,t1.mi_name,t1.mi_number,t1.mi_amount,t1.mi_prince,t1.mi_standard
+    ,t2.u_username,t3.or_pince,t3.or_time,t4.mp_pic,t3.or_id
+    from medicine_info t1,user_info t2,out_repository t3,medicine_pic t4
+    where t1.mi_id=t3.mi_id and t3.u_id=t2.u_id and t4.mi_id=t1.mi_id
+    and t1.mi_name COLLATE utf8_general_ci like #{_name}
+  </select>
   <select id="queryBetweenTime" resultMap="ReposiMap">
     select t1.mi_id,t1.mi_name,t1.mi_number,t1.mi_amount,t1.mi_prince,t1.mi_standard
     ,t2.u_username,t3.or_pince,t3.or_time,t4.mp_pic,t3.or_id

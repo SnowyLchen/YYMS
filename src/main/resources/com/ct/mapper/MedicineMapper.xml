@@ -117,4 +117,12 @@
     delete from medicine_info
     where mi_id=#{miId}
   </delete>
+  <select id="queryByName" resultMap="MedicineMap">
+    <bind name="_name" value="'%'+name+'%'"/>
+     select t1.mi_id, t1.mi_number, t1.mi_name, t1.mi_prince, t1.mi_standard, t2.mp_pic,t3.ms_stock,t3.ms_sales,
+    t4.su_name,t4.su_phone
+    from medicine_info t1,medicine_pic t2,medicine_stock t3,supplier t4
+    where t1.mi_id=t2.mi_id and t1.ms_id=t3.ms_id and  t1.su_id=t4.su_id
+    and t1.mi_name COLLATE utf8_general_ci like #{_name}
+  </select>
 </mapper>

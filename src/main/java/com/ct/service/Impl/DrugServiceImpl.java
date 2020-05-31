@@ -168,4 +168,25 @@ public class DrugServiceImpl implements DrugService {
             return str;
         }
     }
+    @Override
+    public String queryByName(String name,String queryData) {
+            List<outRepository> or=null;
+            List<Medicine> drugs=null;
+            String str="";
+        try{
+            if (queryData.equals("medicine")) {
+                drugs = medicineMapper.queryByName(name);
+                str = convertJSON.ConvertDrugs(10, drugs);
+            }
+            if (queryData.equals("mInfo")){
+                or=outRepositoryMapper.queryByName(name);
+                str=convertJSON.ConvertInfo(10,or);
+            }
+            return str;
+        }catch (Exception e){
+            e.printStackTrace();
+            str=convertJSON.ConvertInfo(0,or);
+            return str;
+        }
+    }
 }

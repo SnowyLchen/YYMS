@@ -14,4 +14,6 @@ public interface out_repositoryMapper {
     List<outRepository> queryAll(@Param("offset") Integer offset, @Param("pagesize") int pagesize);
 
     List<outRepository> queryBetweenTime(@Param("start") String start, @Param("end") String end);
+
+    List<outRepository> queryByName(@Param("name") String name);
 }
