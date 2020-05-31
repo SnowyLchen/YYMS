@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ct.mapper.out_repositoryMapper">
+  <resultMap id="ReposiMap" type="com.ct.pojo.outRepository">
+    <result column="or_id" jdbcType="INTEGER" property="orId" />
+    <result column="or_time" jdbcType="VARCHAR" property="orTime" />
+    <result column="or_pince" jdbcType="DOUBLE" property="orPince" />
+    <association column="u_id" javaType="com.ct.pojo.User" property="user" >
+      <result column="u_id" jdbcType="INTEGER" property="uId" />
+      <result column="u_username" jdbcType="VARCHAR" property="uUsername" />
+    </association>
+    <association column="mi_id" javaType="com.ct.pojo.Medicine" property="medicine" >
+      <id column="mi_id" jdbcType="INTEGER" property="miId"/>
+      <result column="mi_number" jdbcType="VARCHAR" property="miNumber" />
+      <result column="mi_name" jdbcType="VARCHAR" property="miName" />
+      <result column="mi_prince" jdbcType="DOUBLE" property="miPrince" />
+      <result column="mi_amount" jdbcType="INTEGER" property="miAmount" />
+      <result column="mi_standard" jdbcType="VARCHAR" property="miStandard" />
+    </association>
+    <association property="medicinePic" column="mp_id" javaType="com.ct.pojo.MedicinePic">
+      <result column="mp_pic" jdbcType="VARCHAR" property="mpPic"/>
+    </association>
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.ct.pojo.outRepository">
+    insert into out_repository
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orId != null">
+        or_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="miId != null">
+        mi_id,
+      </if>
+      <if test="orTime != null">
+        or_time,
+      </if>
+      <if test="orPince != null">
+        or_pince,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orId != null">
+        #{orId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="miId != null">
+        #{miId,jdbcType=INTEGER},
+      </if>
+      <if test="orTime != null">
+        #{orTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orPince != null">
+        #{orPince,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="queryAll" resultMap="ReposiMap">
+    select t1.mi_id,t1.mi_name,t1.mi_number,t1.mi_amount,t1.mi_prince,t1.mi_standard
+    ,t2.u_username,t3.or_pince,t3.or_time,t4.mp_pic,t3.or_id
+    from medicine_info t1,user_info t2,out_repository t3,medicine_pic t4
+    where t1.mi_id=t3.mi_id and t3.u_id=t2.u_id and t4.mi_id=t1.mi_id
+    limit #{offset},#{pagesize}
+  </select>
+</mapper>

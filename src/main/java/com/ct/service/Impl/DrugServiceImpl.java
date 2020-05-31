@@ -103,6 +103,7 @@ public class DrugServiceImpl implements DrugService {
 //                System.out.println(mt2.get(i).getMt2Id());
                 mt.add(mt2.get(i).getMedicineType());
             }
+
             String drug= convertJSON.ConvertDrugsType(mt);
             System.out.println(drug);
             return drug;
