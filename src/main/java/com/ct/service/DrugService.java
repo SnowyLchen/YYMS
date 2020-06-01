@@ -46,4 +46,6 @@ public interface DrugService {
     boolean deleteDrug(int miId);
 
     String queryByName(String name,String queryData);
+
+    boolean inReposi(int msStock,int miId);
 }

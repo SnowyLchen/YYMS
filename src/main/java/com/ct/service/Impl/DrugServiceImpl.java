@@ -142,6 +142,23 @@ public class DrugServiceImpl implements DrugService {
     }
 
     @Override
+    public boolean inReposi(int msStock,int miId) {
+        try{
+            MedicineStock ms=new MedicineStock();
+            ms.setMsStock(msStock);
+            int row=medicineMapper.inReposi(ms);
+            Integer msId=ms.getMsId();
+            int up=medicineMapper.UpdateinReposi(miId,msId);
+            if (row==0||up==0){
+                return false;
+            }else return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public String queryAllInfo(int pagesize, int pagenum) {
             List<outRepository> or=null;
         try{

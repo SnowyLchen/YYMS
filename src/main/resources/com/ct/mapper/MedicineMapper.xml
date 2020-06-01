@@ -113,6 +113,13 @@
     insert  into medicine_type2(mt_id, mt_sec_type) values (#{mtId},#{mtSecType})
   </insert>
 
+  <insert id="inReposi">
+    insert  into medicine_stock(ms_stock) values (#{msStock})
+    <selectKey resultType="integer" order="AFTER" keyProperty="msId">
+      select LAST_INSERT_ID()
+    </selectKey>
+  </insert>
+
   <delete id="deleteDrug">
     delete from medicine_info
     where mi_id=#{miId}
@@ -125,4 +132,9 @@
     where t1.mi_id=t2.mi_id and t1.ms_id=t3.ms_id and  t1.su_id=t4.su_id
     and t1.mi_name COLLATE utf8_general_ci like #{_name}
   </select>
+
+
+  <update id="UpdateinReposi">
+    update medicine_info set ms_id=#{msId} where mi_id=#{miId}
+  </update>
 </mapper>

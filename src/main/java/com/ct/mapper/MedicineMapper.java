@@ -1,6 +1,7 @@
 package com.ct.mapper;
 
 import com.ct.pojo.Medicine;
+import com.ct.pojo.MedicineStock;
 import com.ct.pojo.MedicineType;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,8 @@ public interface MedicineMapper {
     int deleteDrug(@Param("miId") Integer miId);
 
     List<Medicine> queryByName(@Param("name") String name);
+
+    int inReposi(MedicineStock stock);
+
+    int UpdateinReposi(@Param("miId")int miId,@Param("msStock")Integer msId);
 }

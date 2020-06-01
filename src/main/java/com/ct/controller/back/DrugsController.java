@@ -158,4 +158,19 @@ public class DrugsController {
         }
         else return FALSE_STR;
     }
+
+
+    /**
+     * 进药
+     */
+    @RequestMapping("/inReposi")
+    public String inReposi(String msStock,String miId){
+        if (msStock!=null){
+            boolean at=drugService.inReposi(Integer.parseInt(msStock),Integer.parseInt(miId));
+            if (at){
+                return TRUE_STR;
+            }else return FALSE_STR;
+        }
+        else return FALSE_STR;
+    }
 }
